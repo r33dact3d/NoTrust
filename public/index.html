@@ -56,22 +56,23 @@
   </style>
 </head>
 <body>
-  <h1>NoTrust: Trustless Freelance Jobs</h1>
-  <p>Pay freelancers trustlessly—locked ‘til product delivered.</p>
+  <h1>NoTrust: Trustless Transactions</h1>
+  <p>Pay providers trustlessly—locked ‘til product delivered.</p>
   <p><small>Powered by BSV, MNEE & RockWallet</small></p>
   <img src="logo.png" alt="NoTrust Logo">
+  <p><a href="/how.html">How It Works</a></p>
 
-  <h2>For Sellers: Post a Job</h2>
-  <form id="seller-form">
-    <input type="text" placeholder="Task (e.g., Logo Design)" required>
+  <h2>For Providers: Post a Service/Product</h2>
+  <form id="provider-form">
+    <input type="text" placeholder="Service/Product (e.g., Logo Design)" required>
     <input type="text" placeholder="Specs (e.g., PNG, 500x500px)" required>
     <input type="date" placeholder="Deadline" required>
     <div class="amount-group">
       <input type="number" id="usd-amount" placeholder="Amount (USD)" min="1" step="1" required>
       <input type="number" id="mnee-amount" placeholder="MNEE" min="1" step="1" required>
     </div>
-    <input type="text" placeholder="Your PayMail (e.g., designer@rockwallet)" required>
-    <button type="submit" disabled>Post Job (Coming Soon)</button>
+    <input type="text" placeholder="Your PayMail (e.g., provider@rockwallet)" required>
+    <button type="submit" disabled>Post (Coming Soon)</button>
   </form>
 
   <div class="escrow">
@@ -79,18 +80,18 @@
     <p>Send 5K MNEE arbitration fee to: <span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy</button></p>
     <p>Or use PayMail: <strong>job123@notrust</strong></p>
     <img src="qr.png" alt="Escrow QR Code" width="150">
-    <p>Client will add job amount + 25K MNEE (20K fee + 5K arbitration) to escrow.</p>
+    <p>Buyer will add amount + 25K MNEE (20K fee + 5K arbitration) to escrow.</p>
   </div>
 
   <div class="onramp">
     <h3><a href="#get-mnee">New to MNEE? Get It Here</a></h3>
     <p>NoTrust uses MNEE (1 MNEE = $1 USD) for stable payments on BSV. Get MNEE from fiat:</p>
     <ul>
-      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card. Send to escrow.</li>
+      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card.</li>
       <li><a href="https://coinex.com">CoinEx</a> - Buy BTC with fiat, swap to MNEE (via USDT).</li>
       <li><a href="https://changelly.com">Changelly</a> - Buy BSV with fiat, swap to MNEE (e.g., CoinEx).</li>
     </ul>
-    <p>Got MNEE? Send it to the escrow address or PayMail to lock your job.</p>
+    <p>Got MNEE? Send it to escrow to lock your transaction.</p>
   </div>
 
   <script>
