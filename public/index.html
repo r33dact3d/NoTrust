@@ -9,22 +9,49 @@
     input, button { padding: 8px; font-size: 16px; }
     button:disabled { background: #ccc; }
     small { color: #666; }
+    .escrow, .onramp { max-width: 600px; margin: 20px auto; text-align: left; }
+    .escrow p, .onramp p { margin: 5px 0; }
+    ul { padding-left: 20px; }
   </style>
 </head>
 <body>
   <h1>NoTrust: Trustless Freelance Jobs</h1>
   <p>Pay freelancers $25-$50 in BSV/MNEE—locked ‘til delivered. MVP in progress.</p>
-  <p><small>Powered by BSV, MNEE & HandCash</small></p>
+  <p><small>Powered by BSV, MNEE & RockWallet</small></p>
   <img src="logo.png" alt="NoTrust Logo">
-  <button onclick="alert('Login coming soon')">Login with HandCash</button>
 
   <form>
     <input type="text" placeholder="Task (e.g., Logo Design)" required>
     <input type="text" placeholder="Specs (e.g., PNG, 500x500px)" required>
     <input type="date" placeholder="Deadline" required>
-    <input type="number" placeholder="Amount (MNEE)" min="50000" max="250000" required>
-    <input type="text" placeholder="Designer (@handcash.io)" required>
+    <input type="number" placeholder="Amount (MNEE, e.g., 100000 = $50)" min="50000" max="250000" required>
+    <input type="text" placeholder="Designer (e.g., designer@rockwallet)" required>
     <button type="submit" disabled>Lock Job (Coming Soon)</button>
   </form>
+
+  <div class="escrow">
+    <h3>Escrow Details (MVP Test)</h3>
+    <p>Send MNEE to: <span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy</button></p>
+    <p>Or use PayMail: <strong>job123@notrust</strong></p>
+    <img src="qr.png" alt="Escrow QR Code" width="150">
+  </div>
+
+  <div class="onramp">
+    <h3><a href="#get-mnee">New to BSV/MNEE? Get Started Here</a></h3>
+    <p>NoTrust uses MNEE (1 MNEE = $0.0005 USD) for stable payments on BSV. Choose an option below:</p>
+    <ul>
+      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card, send to escrow above. Easiest for beginners!</li>
+      <li><a href="https://handcash.io">HandCash</a> - Buy BSV, swap to MNEE on <a href="https://coinex.com">CoinEx</a>.</li>
+      <li><a href="https://changelly.com">Changelly</a> - Convert fiat or other crypto to BSV/MNEE.</li>
+    </ul>
+    <p>Have MNEE? Send it to the escrow address or PayMail above to lock your job.</p>
+  </div>
+
+  <script>
+    function copyAddr() {
+      navigator.clipboard.writeText(document.getElementById('escrow-addr').innerText);
+      alert('Address copied!');
+    }
+  </script>
 </body>
 </html>
