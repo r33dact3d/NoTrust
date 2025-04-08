@@ -4,14 +4,51 @@
   <title>NoTrust</title>
   <link rel="icon" href="logo.png">
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-    form { max-width: 400px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px; }
-    input, button { padding: 8px; font-size: 16px; }
-    button:disabled { background: #ccc; }
-    small { color: #666; }
-    .escrow, .onramp { max-width: 600px; margin: 20px auto; text-align: left; }
-    .escrow p, .onramp p { margin: 5px 0; }
-    ul { padding-left: 20px; }
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      padding: 20px; 
+      background-color: #000000; 
+      color: #ffffff; 
+    }
+    form { 
+      max-width: 400px; 
+      margin: 20px auto; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+    }
+    input, button { 
+      padding: 8px; 
+      font-size: 16px; 
+      background-color: #333333; 
+      color: #ffffff; 
+      border: 1px solid #ffffff; 
+    }
+    button:disabled { 
+      background-color: #555555; 
+    }
+    small { 
+      color: #cccccc; 
+    }
+    .escrow, .onramp { 
+      max-width: 600px; 
+      margin: 20px auto; 
+      text-align: left; 
+    }
+    .escrow p, .onramp p { 
+      margin: 5px 0; 
+    }
+    ul { 
+      padding-left: 20px; 
+    }
+    a { 
+      color: #00ccff; 
+      text-decoration: none; 
+    }
+    a:hover { 
+      text-decoration: underline; 
+    }
   </style>
 </head>
 <body>
@@ -36,15 +73,15 @@
     <img src="qr.png" alt="Escrow QR Code" width="150">
   </div>
 
-  <div class="onramp">
-    <h3><a href="#get-mnee">New to BSV/MNEE? Get Started Here</a></h3>
-    <p>NoTrust uses MNEE (1 MNEE = $0.0005 USD) for stable payments on BSV. Choose an option below:</p>
+  <div class="onrampcampus>
+    <h3><a href="#get-mnee">New to BSV/MNEE? Get MNEE Here</a></h3>
+    <p>NoTrust uses MNEE (1 MNEE = $0.0005 USD) for stable payments on BSV. Get MNEE from fiat with these options:</p>
     <ul>
-      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card, send to escrow above. Easiest for beginners!</li>
-      <li><a href="https://handcash.io">HandCash</a> - Buy BSV, swap to MNEE on <a href="https://coinex.com">CoinEx</a>.</li>
-      <li><a href="https://changelly.com">Changelly</a> - Convert fiat or other crypto to BSV/MNEE.</li>
+      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE directly with a card. Send to escrow above. Best for beginners!</li>
+      <li><a href="https://coinex.com">CoinEx</a> - Buy BTC with fiat, swap to MNEE (via USDT). Then send to escrow.</li>
+      <li><a href="https://changelly.com">Changelly</a> - Buy BSV with fiat, swap to MNEE elsewhere (e.g., CoinEx). Send to escrow.</li>
     </ul>
-    <p>Have MNEE? Send it to the escrow address or PayMail above to lock your job.</p>
+    <p>Got MNEE? Send it to the escrow address or PayMail above to lock your job.</p>
   </div>
 
   <script>
