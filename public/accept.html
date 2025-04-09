@@ -35,19 +35,20 @@
         <p>Seller: designer@rockwallet.com</p>
         <p>Description: Logo, PNG 500x500px</p>
         <p>Deadline: 7 days from escrow funding</p>
-        <p>Price: $60</p>
+        <p>Price: MNEE 60</p>
         <form id="buyer-form">
             <label for="buyer-paymail">Your PayMail or other BSV address (e.g., client@rockwallet.com):</label>
             <input type="text" id="buyer-paymail" name="buyer-paymail" required placeholder="client@rockwallet.com">
 
-            <label>$10 Arbitration Fee refunded if Arbitration Function is not utilized. $60 Job Price + $10 Arbitration Fee refunded if Buyer submits and wins Arbitration.</label>
+            <label>MNEE 10 Arbitration Fee refunded if Arbitration Function is not utilized. MNEE 60 Job Price + MNEE 10 Arbitration Fee refunded if Buyer submits and wins Arbitration.</label>
 
-            <button type="submit">Accept & Lock $70</button>
+            <button type="submit">Accept & Lock MNEE 70</button>
         </form>
         <div id="status"></div>
     </div>
 
     <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
+    <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
     <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
     <p>Status updates (e.g., “Listing Posted”, “Escrow Funded”) will be shown on-site. Email confirmations and editing coming in MVP via PayMail/BSV address.</p>
 
@@ -55,9 +56,9 @@
         document.getElementById('buyer-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const buyerPaymail = document.getElementById('buyer-paymail').value;
-            const buyerStake = 70; // Fixed $70 (Price + $10 deposit)
-            console.log(`Buyer Accepted:\nPayMail/BSV: ${buyerPaymail}\nJob: Logo Design\nPrice: $60\nBuyer Stake: $${buyerStake} locked to escrow`);
-            alert(`Job Accepted! Please manually send $70 MNEE to escrow: styraks@rockwallet (stub—automated in MVP).`);
+            const buyerStake = 70; // Fixed MNEE 70 (Price + MNEE 10 deposit)
+            console.log(`Buyer Accepted:\nPayMail/BSV: ${buyerPaymail}\nJob: Logo Design\nPrice: MNEE 60\nBuyer Stake: MNEE ${buyerStake} locked to escrow`);
+            alert(`Job Accepted! Please manually send MNEE 70 to escrow: styraks@rockwallet (stub—automated in MVP).`);
             document.getElementById('status').innerText = 'Status: Escrow Funded (stub—check back for updates)';
             // TODO: Replace with lock.js call when ready
         });
