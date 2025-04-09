@@ -53,15 +53,23 @@
     <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
     <p>Status updates (e.g., “Listing Posted”, “Escrow Funded”) will be shown on-site. Email confirmations and editing coming in MVP via PayMail/BSV address.</p>
 
+    <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
+    <script src="/api/lock.js"></script>
     <script>
-        document.getElementById('buyer-form').addEventListener('submit', function(e) {
+        document.getElementById('buyer-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const buyerPaymail = document.getElementById('buyer-paymail').value;
-            const buyerStake = 70; // Fixed 70 MNEE (Price + 10 MNEE deposit)
-            console.log(`Buyer Accepted:\nPayMail/BSV: ${buyerPaymail}\nJob: Logo Design\nPrice: 60 MNEE\nBuyer Stake: ${buyerStake} MNEE locked to escrow`);
-            alert(`Job Accepted! Please manually send 70 MNEE to escrow: styraks@rockwallet (stub—automated in MVP).`);
-            document.getElementById('status').innerText = 'Status: Escrow Funded (stub—check back for updates)';
-            // TODO: Replace with lock.js call when ready
+            const sellerPaymail = 'designer@rockwallet.com'; // Hardcoded for sample
+            const price = 60; // Hardcoded for sample
+            
+            try {
+                const result = await lockBuyerStake(buyerPaymail, sellerPaymail, price);
+                console.log('Buyer TXID:', result.txid);
+                alert(`Job Accepted! TXID: ${result.txid} (stub—check console).`);
+                document.getElementById('status').innerText = 'Status: Escrow Funded (stub—check back for updates)';
+            } catch (e) {
+                alert('Failed to accept job—check console for details.');
+            }
         });
     </script>
 </body>
