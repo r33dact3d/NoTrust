@@ -72,6 +72,8 @@
     <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
     <p>Status updates (e.g., “Listing Posted”, “Escrow Funded”) will be shown on-site. Email confirmations and editing coming in MVP via PayMail/BSV address.</p>
 
+    <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
+    <script src="/api/lock.js"></script>
     <script>
         // Set min date to today
         const today = new Date().toISOString().split('T')[0];
@@ -93,17 +95,21 @@
             input.value = value;
         }
 
-        document.getElementById('seller-form').addEventListener('submit', function(e) {
+        document.getElementById('seller-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const paymail = document.getElementById('paymail').value;
             const description = document.getElementById('description').value;
             const expiration = document.getElementById('expiration').value;
             const deliveryDays = parseInt(document.getElementById('delivery-days').value);
             const price = parseFloat(document.getElementById('price').value);
-            const sellerStake = 20; // 20 MNEE stake (Fee + Penalty)
-            console.log(`Seller Job Posted:\nPayMail/BSV: ${paymail}\nService: ${description}\nExpiration: ${expiration}\nDelivery: ${deliveryDays} days from escrow\nPrice: ${price} MNEE\nSeller Stake: ${sellerStake} MNEE locked to escrow`);
-            alert(`Job Posted! Please manually send 20 MNEE to escrow: styraks@rockwallet (stub—automated in MVP). Expires ${expiration} if no Buyer. Delivery: ${deliveryDays} days after escrow funded.`);
-            // TODO: Integrate lock.js to send 20 MNEE automatically
+            
+            try {
+                const result = await lockSellerStake(paymail, price, deliveryDays, description, expiration);
+                console.log('Seller TXID:', result.txid);
+                alert(`Job Posted! TXID: ${result.txid} (stub—check console). Expires ${expiration} if no Buyer. Delivery: ${deliveryDays} days after escrow funded.`);
+            } catch (e) {
+                alert('Failed to post job—check console for details.');
+            }
         });
     </script>
 </body>
