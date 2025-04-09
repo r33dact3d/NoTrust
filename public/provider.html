@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoTrust - Service Providers</title>
+    <title>NTeX - Service Providers</title>
     <link rel="icon" href="logo.png">
     <style>
         html { font-family: "Exo 2", Arial, sans-serif; font-size: 16px; line-height: 1.15; scroll-behavior: smooth; }
-        body { margin: 0; background: #101010; color: #e5e5e5; }
+        body { margin: 0; background: #000000; color: #e5e5e5; position: relative; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; margin: 0 0 24px; font-size: 2.5rem; }
-        h2 { font-family: "Exo 2", sans-serif; color: #ff9900; margin: 48px 0 24px; font-size: 1.75rem; }
-        p { margin: 10px 0; line-height: 1.6; }
+        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; margin: 0 0 32px; font-size: 4rem; }
+        h2 { font-family: "Exo 2", sans-serif; color: #ff9900; margin: 64px 0 24px; font-size: 2.5rem; }
+        p { margin: 15px 0; line-height: 1.6; font-size: 1.2rem; }
         a { color: #ff9900; text-decoration: none; }
         a:hover { color: #e68a00; }
         img { max-width: 200px; margin: 20px 0; }
-        input, button { padding: 10px; margin: 10px 0; font-family: "Exo 2", sans-serif; }
-        textarea { width: 100%; padding: 10px; margin: 10px 0; font-family: "Exo 2", sans-serif; resize: vertical; min-height: 150px; background: #ffffff; color: #101010; border: 1px solid #ff9900; border-radius: 5px; }
-        input[type="text"], input[type="number"] { width: 300px; background: #ffffff; color: #101010; border: 1px solid #ff9900; border-radius: 5px; }
-        input[type="number"] { width: 100px; -moz-appearance: textfield; }
+        input, button { padding: 10px; margin: 15px 0; font-family: "Exo 2", sans-serif; }
+        textarea { width: 100%; padding: 15px; margin: 15px 0; font-family: "Exo 2", sans-serif; resize: vertical; min-height: 200px; background: #ffffff; color: #000000; border: 1px solid #ff9900; border-radius: 0; }
+        input[type="text"], input[type="number"] { width: 400px; background: #ffffff; color: #000000; border: 1px solid #ff9900; border-radius: 0; }
+        input[type="number"] { width: 120px; -moz-appearance: textfield; }
         input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
-        .number-controls { display: flex; align-items: center; gap: 10px; }
-        .number-btn { padding: 5px 10px; background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        .number-controls { display: flex; align-items: center; gap: 15px; }
+        .number-btn { padding: 5px 15px; background: #ff9900; color: #fff; border: none; border-radius: 0; cursor: pointer; }
         .number-btn:hover { background: #e68a00; }
-        button { background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; padding: 12px 24px; }
-        button:hover { background: #e68a00; }
+        button { background: transparent; color: #ff9900; border: 1px solid #ff9900; border-radius: 0; cursor: pointer; padding: 15px 30px; }
+        button:hover { background: #ff9900; color: #000000; }
         strong { color: #e5e5e5; }
         small { font-size: 0.9em; }
-        .section { max-width: 1200px; margin: 0 auto; padding: 48px; }
-        .section:nth-child(odd) { background: #101010; }
-        .section:nth-child(even) { background: #1a1a2e; }
-        .form-group { margin-bottom: 20px; }
-        .burger-menu { position: fixed; top: 16px; left: 16px; z-index: 1000; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .burger-icon { width: 32px; height: 32px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; }
-        .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #1a1a2e; z-index: 999; padding: 32px; flex-direction: column; }
+        .section { max-width: 1400px; margin: 0 auto; padding: 32px 64px; position: relative; }
+        .section::after { content: ''; position: absolute; bottom: 0; left: 64px; width: 200px; height: 1px; background: #ff9900; opacity: 0.5; }
+        .form-group { margin-bottom: 30px; }
+        .hex-overlay { 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            width: 300px; 
+            height: 300px; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23ff9900" stroke-width="1"><path d="M25 15 L75 15 L95 50 L75 85 L25 85 L5 50 Z"/></svg>') no-repeat center; 
+            opacity: 0.2; 
+            pointer-events: none; 
+        }
+        .burger-menu { position: fixed; top: 16px; left: 16px; z-index: 1000; cursor: pointer; }
+        .burger-icon { width: 40px; height: 40px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000000; z-index: 999; padding: 32px; flex-direction: column; }
         .mobile-menu.active { display: flex; }
-        .mobile-menu img { margin-bottom: 48px; }
-        .mobile-links { gap: 16px; display: flex; flex-direction: column; }
-        .social-bar { position: fixed; top: 16px; right: 16px; display: flex; gap: 16px; z-index: 1000; }
-        .social-icon { width: 32px; height: 32px; cursor: pointer; }
+        .mobile-menu img { margin-bottom: 64px; }
+        .mobile-links { gap: 24px; display: flex; flex-direction: column; font-size: 1.5rem; }
+        .social-bar { position: fixed; top: 16px; right: 16px; display: flex; gap: 24px; z-index: 1000; }
+        .social-icon { width: 40px; height: 40px; cursor: pointer; }
         .x-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         .tipjar-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; }
         @media (max-width: 767px) {
-            .section { padding: 16px; }
+            .section { padding: 16px 32px; }
+            .section::after { left: 32px; width: 100px; }
             .burger-menu { top: 8px; left: 8px; }
             .social-bar { top: 8px; right: 8px; }
             input[type="text"], textarea { width: 100%; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.75rem; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
@@ -55,7 +67,7 @@
         <div class="burger-icon"></div>
     </div>
     <div class="mobile-menu" id="mobileMenu">
-        <img src="/logo.png" alt="NoTrust Logo">
+        <img src="/logo.png" alt="NTeX Logo">
         <div class="mobile-links">
             <a href="#create" onclick="toggleMenu()">Create a Listing</a>
             <a href="#how" onclick="toggleMenu()">How It Works</a>
@@ -69,66 +81,60 @@
 
     <!-- Create a Listing Section -->
     <div id="create" class="section">
+        <div class="hex-overlay"></div>
         <h1>Create a Listing</h1>
-        <p>Create a listing by filling out the details below.</p>
+        <p>Fill in your service details.</p>
         <div class="form-group">
-            <label for="sellerWallet">Seller’s BSV Wallet (Paymail or Address):</label><br>
-            <input type="text" id="sellerWallet" placeholder="e.g., user@paymail.com or 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa">
+            <label for="sellerWallet">BSV Wallet (Paymail or Address):</label><br>
+            <input type="text" id="sellerWallet" placeholder="e.g., user@paymail.com">
         </div>
         <div class="form-group">
             <label for="serviceDescription">Service Description:</label><br>
-            <textarea id="serviceDescription" placeholder="e.g., Logo Design, PNG 500x500px, custom branding for tech startup"></textarea>
+            <textarea id="serviceDescription" placeholder="e.g., Logo Design, PNG 500x500px"></textarea>
         </div>
         <div class="form-group">
             <label for="price">Price (MNEE):</label><br>
             <div class="number-controls">
                 <button class="number-btn" onclick="adjustPrice(-1)">-</button>
-                <input type="number" id="price" placeholder="e.g., 50" min="0" step="1" value="0">
+                <input type="number" id="price" placeholder="50" min="0" step="1" value="0">
                 <button class="number-btn" onclick="adjustPrice(1)">+</button>
             </div>
         </div>
         <div class="form-group">
-            <label for="deliveryDays">Number of Days for Completion:</label><br>
+            <label for="deliveryDays">Days to Deliver:</label><br>
             <div class="number-controls">
                 <button class="number-btn" onclick="adjustDays(-1)">-</button>
-                <input type="number" id="deliveryDays" placeholder="e.g., 7" min="1" step="1" value="1">
+                <input type="number" id="deliveryDays" placeholder="7" min="1" step="1" value="1">
                 <button class="number-btn" onclick="adjustDays(1)">+</button>
             </div>
         </div>
         <button onclick="createListing()">Create Listing</button>
-        <p>Once created, your Job ID will be generated (e.g., NTX-12345). Send this to a buyer via email or chat for them to fund escrow.</p>
-        <p><small>Note: Future update may include hyperlinkable Job IDs to auto-fill in the client section.</small></p>
-        <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
-        <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
-        <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
+        <p>Job ID generated (e.g., NTX-12345).<br>Send to buyer for escrow funding.</p>
+        <p><small>Future: Hyperlinkable Job IDs.</small></p>
+        <p>Need MNEE? Try <a href="https://rockwallet.com">RockWallet</a>.</p>
     </div>
 
     <!-- How It Works (Provider) Section -->
     <div id="how" class="section">
-        <h1>How It Works for Service Providers</h1>
-        <p><small>Powered by <a href="https://buybsv.com/applications/">BSV</a>, <a href="https://mnee.io">MNEE</a> & <a href="https://rockwallet.com">RockWallet</a></small></p>
-        <p>Here’s how you, as a Service Provider, can use NoTrust to sell services securely:</p>
-        <h2>How Do I Get Started?</h2>
-        <p>Create a listing with your BSV wallet, a detailed service description, price in MNEE, and delivery timeframe. You’ll lock a 5K MNEE arbitration fee to ensure commitment.</p>
-        <h2>What Happens After I List My Service?</h2>
-        <p>Share your unique Job ID (e.g., NTX-12345) with a buyer. They’ll fund escrow with your price plus a 25K MNEE fee (20K for NoTrust, 5K for arbitration).</p>
-        <h2>How Do I Get Paid?</h2>
-        <p>Deliver your service within the specified days. If the buyer approves (or doesn’t dispute within 24 hours), you receive your payment (e.g., 50 MNEE) and your 5K MNEE fee back. NoTrust keeps 20K MNEE.</p>
-        <h2>What If There’s a Dispute?</h2>
-        <p>If the buyer disputes within 24 hours, we review your delivery against the specs:<br>
-           - <strong>You Win</strong>: You get your payment (e.g., 50 MNEE) + 5K MNEE back, buyer loses 5K, NoTrust gets 15K MNEE.<br>
-           - <strong>Buyer Wins</strong>: Buyer gets a full refund + 5K MNEE, you lose 5K, NoTrust gets 15K MNEE.</p>
-        <h2>How Do I Avoid Problems?</h2>
-        <p>- Use precise specs (e.g., “JPG, 300 DPI,” not “pretty”).<br>
-           - Deliver within your set days—missed deadlines mean automatic loss.<br>
-           - Upload proof (e.g., file hash) to BSV to strengthen your case in disputes.</p>
-        <p>Questions? Hit us up on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
+        <div class="hex-overlay"></div>
+        <h1>How It Works</h1>
+        <p>Sell services securely with NTeX.</p>
+        <h2>Get Started</h2>
+        <p>List your service. Lock 5K MNEE.</p>
+        <h2>After Listing</h2>
+        <p>Share Job ID. Buyer funds escrow.</p>
+        <h2>Get Paid</h2>
+        <p>Deliver on time. Get paid if approved.</p>
+        <h2>Disputes</h2>
+        <p>Win: Payment + 5K MNEE.<br>Lose: Buyer refunded.</p>
+        <h2>Tips</h2>
+        <p>Clear specs. Meet deadlines. Prove delivery.</p>
+        <p>Questions? Ask on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
     </div>
 
     <script>
         function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
+            document.getElementById('mobileMenu').classList.toggle('active');
         }
         function adjustPrice(delta) {
             const price = document.getElementById('price');
