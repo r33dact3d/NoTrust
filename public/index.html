@@ -3,46 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoTrust - Trustless Escrow</title>
+    <title>NTeX - No Trust eXchange</title>
     <link rel="icon" href="logo.png">
     <style>
         html { font-family: "Exo 2", Arial, sans-serif; font-size: 16px; line-height: 1.15; }
-        body { margin: 0; background: #101010; color: #e5e5e5; display: flex; flex-direction: column; min-height: 100vh; justify-content: center; align-items: center; }
+        body { margin: 0; background: #000000; color: #e5e5e5; display: flex; flex-direction: column; min-height: 100vh; justify-content: center; align-items: center; position: relative; overflow-x: hidden; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; font-size: 3rem; margin: 0 0 24px; text-align: center; }
-        p { margin: 10px 0; font-size: 1.25rem; text-align: center; }
+        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; font-size: 4rem; margin: 0 0 32px; text-align: center; }
+        p { margin: 10px 0; font-size: 1.5rem; text-align: center; }
         a { color: #ff9900; text-decoration: none; }
         a:hover { color: #e68a00; }
         img { max-width: 300px; margin: 20px 0; }
-        .buttons { display: flex; gap: 32px; margin-top: 48px; }
+        .buttons { display: flex; gap: 48px; margin-top: 64px; }
         button { 
-            padding: 16px 32px; 
+            padding: 20px 40px; 
             font-family: "Exo 2", sans-serif; 
-            font-size: 1.5rem; 
-            background: #ff9900; 
-            color: #fff; 
-            border: none; 
-            border-radius: 8px; 
+            font-size: 1.75rem; 
+            background: transparent; 
+            color: #ff9900; 
+            border: 2px solid #ff9900; 
+            border-radius: 0; 
             cursor: pointer; 
-            transition: background 0.3s; 
+            transition: color 0.3s, background 0.3s; 
         }
-        button:hover { background: #e68a00; }
+        button:hover { background: #ff9900; color: #000000; }
+        .logo-overlay { 
+            position: absolute; 
+            top: 10%; 
+            left: -20%; 
+            font-family: "Audiowide", sans-serif; 
+            font-size: 10rem; 
+            color: #ff9900; 
+            opacity: 0.2; 
+            transform: rotate(-45deg); 
+            pointer-events: none; 
+        }
         @media (max-width: 767px) {
-            .buttons { flex-direction: column; gap: 16px; }
-            h1 { font-size: 2rem; }
-            p { font-size: 1rem; }
-            button { font-size: 1.25rem; padding: 12px 24px; }
+            .buttons { flex-direction: column; gap: 24px; }
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1.2rem; }
+            button { font-size: 1.5rem; padding: 15px 30px; }
+            .logo-overlay { font-size: 6rem; top: 5%; left: -10%; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-    <img src="/logo.png" alt="NoTrust Logo">
-    <h1>NoTrust</h1>
-    <p>Trustless Escrow Powered by MNEE</p>
+    <div class="logo-overlay">NTX</div>
+    <img src="/logo.png" alt="NTeX Logo">
+    <h1>NTeX</h1>
+    <p>No Trust eXchange<br>Powered by MNEE</p>
     <div class="buttons">
-        <button onclick="window.location.href='/provider.html'">I’m a Service Provider</button>
-        <button onclick="window.location.href='/client.html'">I’m a Prospective Client</button>
+        <button onclick="window.location.href='/provider.html'">Service Provider</button>
+        <button onclick="window.location.href='/client.html'">Prospective Client</button>
     </div>
 </body>
 </html>
