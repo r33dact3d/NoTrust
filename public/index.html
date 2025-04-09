@@ -57,7 +57,7 @@
 
             <label for="price">Quoted Price (USD/MNEE):</label>
             <div class="price-selector">
-                <input type="number" id="price" name="price" min="60" value="60" required>
+                <input type="number" id="price" name="price" min="20" value="20" required>
                 <button type="button" onclick="adjustPrice(-1)">-</button>
                 <button type="button" onclick="adjustPrice(1)">+</button>
             </div>
@@ -88,7 +88,7 @@
         function adjustPrice(delta) {
             const input = document.getElementById('price');
             let value = parseInt(input.value) + delta;
-            if (value < 60) value = 60;
+            if (value < 20) value = 20;
             input.value = value;
         }
 
