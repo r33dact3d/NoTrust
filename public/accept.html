@@ -33,16 +33,17 @@
     <div class="job">
         <h3>Sample Job: Logo Design</h3>
         <p>Seller: designer@rockwallet.com</p>
+        <p><small>(PayMail addresses are for MNEE/BSV payments only, not email)</small></p>
         <p>Description: Logo, PNG 500x500px</p>
         <p>Deadline: 7 days from escrow funding</p>
-        <p>Price: MNEE 60</p>
+        <p>Price: 60 MNEE</p>
         <form id="buyer-form">
             <label for="buyer-paymail">Your PayMail or other BSV address (e.g., client@rockwallet.com):</label>
             <input type="text" id="buyer-paymail" name="buyer-paymail" required placeholder="client@rockwallet.com">
 
-            <label>MNEE 10 Arbitration Fee refunded if Arbitration Function is not utilized. MNEE 60 Job Price + MNEE 10 Arbitration Fee refunded if Buyer submits and wins Arbitration.</label>
+            <label>10 MNEE Arbitration Fee refunded if Arbitration Function is not utilized. 60 MNEE Job Price + 10 MNEE Arbitration Fee refunded if Buyer submits and wins Arbitration.</label>
 
-            <button type="submit">Accept & Lock MNEE 70</button>
+            <button type="submit">Accept & Lock 70 MNEE</button>
         </form>
         <div id="status"></div>
     </div>
@@ -56,9 +57,9 @@
         document.getElementById('buyer-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const buyerPaymail = document.getElementById('buyer-paymail').value;
-            const buyerStake = 70; // Fixed MNEE 70 (Price + MNEE 10 deposit)
-            console.log(`Buyer Accepted:\nPayMail/BSV: ${buyerPaymail}\nJob: Logo Design\nPrice: MNEE 60\nBuyer Stake: MNEE ${buyerStake} locked to escrow`);
-            alert(`Job Accepted! Please manually send MNEE 70 to escrow: styraks@rockwallet (stub—automated in MVP).`);
+            const buyerStake = 70; // Fixed 70 MNEE (Price + 10 MNEE deposit)
+            console.log(`Buyer Accepted:\nPayMail/BSV: ${buyerPaymail}\nJob: Logo Design\nPrice: 60 MNEE\nBuyer Stake: ${buyerStake} MNEE locked to escrow`);
+            alert(`Job Accepted! Please manually send 70 MNEE to escrow: styraks@rockwallet (stub—automated in MVP).`);
             document.getElementById('status').innerText = 'Status: Escrow Funded (stub—check back for updates)';
             // TODO: Replace with lock.js call when ready
         });
