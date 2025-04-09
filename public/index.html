@@ -1,124 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>NoTrust</title>
-  <link rel="icon" href="logo.png">
-  <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      padding: 20px; 
-      background-color: #000000; 
-      color: #ffffff; 
-    }
-    form { 
-      max-width: 400px; 
-      margin: 20px auto; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 10px; 
-    }
-    input, button { 
-      padding: 8px; 
-      font-size: 16px; 
-      background-color: #333333; 
-      color: #ffffff; 
-      border: 1px solid #ffffff; 
-    }
-    button:disabled { 
-      background-color: #555555; 
-    }
-    small { 
-      color: #cccccc; 
-    }
-    .escrow, .onramp { 
-      max-width: 600px; 
-      margin: 20px auto; 
-      text-align: left; 
-    }
-    .escrow p, .onramp p { 
-      margin: 5px 0; 
-    }
-    ul { 
-      padding-left: 20px; 
-    }
-    a { 
-      color: #00ccff; 
-      text-decoration: none; 
-    }
-    a:hover { 
-      text-decoration: underline; 
-    }
-    .amount-group { 
-      display: flex; 
-      gap: 10px; 
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoTrust - Trustless Escrow</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .form-section { margin: 20px 0; }
+        label { display: block; margin: 10px 0 5px; }
+        input, textarea { width: 100%; padding: 8px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
 </head>
 <body>
-  <h1>NoTrust: Trustless Transactions</h1>
-  <p>Pay providers trustlessly—locked ‘til product delivered.</p>
-  <p><small>Powered by <a href="https://buybsv.com/applications/">BSV</a>, <a href="https://mnee.io">MNEE</a> & <a href="https://rockwallet.com">RockWallet</a></small></p>
-  <img src="logo.png" alt="NoTrust Logo">
-  <p><a href="/index.html">Post a Job</a> | <a href="/accept.html">Find a Job</a> | <a href="/how.html">How It Works</a></p>
+    <h1>NoTrust: Trustless Escrow on BSV/MNEE</h1>
+    <p>Create a job or service offer. Lock your stake, get paid trustlessly.</p>
 
-  <h2>For Providers: Post a Service/Product</h2>
-  <form id="provider-form">
-    <input type="text" id="job-id" placeholder="Job ID (e.g., 123)" required>
-    <input type="text" placeholder="Service/Product (e.g., Logo Design)" required>
-    <input type="text" placeholder="Specs (e.g., PNG, 500x500px)" required>
-    <input type="date" placeholder="Deadline" required>
-    <div class="amount-group">
-      <input type="number" id="usd-amount" placeholder="Amount (USD)" min="1" step="1" required>
-      <input type="number" id="mnee-amount" placeholder="MNEE" min="1" step="1" required>
+    <div class="form-section">
+        <h2>Seller: Post Your Service</h2>
+        <form id="seller-form">
+            <label for="paymail">Your PayMail (e.g., designer@rockwallet):</label>
+            <input type="email" id="paymail" name="paymail" required placeholder="designer@rockwallet">
+
+            <label for="description">Service Description (e.g., “Logo, PNG 500x500px”):</label>
+            <textarea id="description" name="description" required placeholder="Describe your service (file type, size, etc.)"></textarea>
+
+            <label for="deadline">Delivery Deadline (e.g., “April 15, 2025”):</label>
+            <input type="date" id="deadline" name="deadline" required>
+
+            <label for="price">Quoted Price (USD/MNEE):</label>
+            <input type="number" id="price" name="price" min="60" step="1" required placeholder="Minimum $60" value="60">
+            <p><small>Your price includes a $10 NoTrust fee, deducted at payout. You’ll lock a $20 stake (refunded if delivered).</small></p>
+
+            <button type="submit">Lock $20 Stake & Post Job</button>
+        </form>
     </div>
-    <input type="text" placeholder="Your PayMail (e.g., provider@rockwallet)" required>
-    <button type="submit" disabled>Post (Coming Soon)</button>
-  </form>
 
-  <div class="escrow">
-    <h3>Escrow Details (After Posting)</h3>
-    <p>Job ID: <span id="display-job-id">123</span></p>
-    <p>Send 5K MNEE arbitration fee to: <span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy</button></p>
-    <p>Or use PayMail: <strong>job123@notrust</strong></p>
-    <img src="qr.png" alt="Escrow QR Code" width="150">
-    <p>Share with buyer: <a href="/accept.html#123">notrust.vercel.app/accept.html#123</a></p>
-    <p>Buyer will add amount + 25K MNEE (20K fee + 5K arbitration) to escrow.</p>
-  </div>
+    <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
+    <p>Learn more: <a href="/how.html">How It Works</a></p>
 
-  <div class="onramp">
-    <h3><a href="#get-mnee">New to MNEE? Get It Here</a></h3>
-    <p>NoTrust uses MNEE (1 MNEE = $1 USD) for stable payments on BSV. Get MNEE from fiat:</p>
-    <ul>
-      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card.</li>
-      <li><a href="https://coinex.com">CoinEx</a> - Buy BTC with fiat, swap to MNEE (via USDT).</li>
-      <li><a href="https://changelly.com">Changelly</a> - Buy BSV with fiat, swap to MNEE (e.g., CoinEx).</li>
-    </ul>
-    <p>Got MNEE? Send it to escrow to lock your transaction.</p>
-  </div>
-
-  <script>
-    const usdInput = document.getElementById('usd-amount');
-    const mneeInput = document.getElementById('mnee-amount');
-    const jobIdInput = document.getElementById('job-id');
-    const displayJobId = document.getElementById('display-job-id');
-    
-    usdInput.addEventListener('input', () => {
-      const usdValue = parseFloat(usdInput.value) || 0;
-      mneeInput.value = usdValue; // 1 MNEE = $1 USD
-    });
-    mneeInput.addEventListener('input', () => {
-      const mneeValue = parseFloat(mneeInput.value) || 0;
-      usdInput.value = mneeValue;
-    });
-    jobIdInput.addEventListener('input', () => {
-      displayJobId.textContent = jobIdInput.value || '123';
-    });
-
-    function copyAddr() {
-      navigator.clipboard.writeText(document.getElementById('escrow-addr').innerText);
-      alert('Address copied!');
-    }
-  </script>
+    <script>
+        document.getElementById('seller-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const paymail = document.getElementById('paymail').value;
+            const description = document.getElementById('description').value;
+            const deadline = document.getElementById('deadline').value;
+            const price = document.getElementById('price').value;
+            alert(`Job Posted!\nPayMail: ${paymail}\nService: ${description}\nDeadline: ${deadline}\nPrice: $${price}\nStake: $20 locked (escrow stub).`);
+            // TODO: Integrate with lock.js for real escrow logic
+        });
+    </script>
 </body>
 </html>
