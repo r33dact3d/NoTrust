@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoTrust - Browse Listings</title>
+    <style>
+        html { 
+            font-family: "Exo 2", Arial, sans-serif; 
+            font-size: 16px; 
+            line-height: 1.15; 
+            scroll-behavior: smooth; 
+        }
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            background: #101010; 
+            color: #e5e5e5; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        h1 { 
+            font-family: "Audiowide", sans-serif; 
+            color: #ff9900; 
+            margin: 0 0 20px; 
+        }
+        .listings { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+        }
+        .listing-card { 
+            background: #1a1a2e; 
+            padding: 15px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+        }
+        .listing-card h3 { 
+            margin: 0 0 10px; 
+            color: #ff9900; 
+            font-family: "Exo 2", sans-serif; 
+        }
+        .listing-card p { margin: 5px 0; }
+        button { 
+            padding: 10px 20px; 
+            background: #ff9900; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-family: "Exo 2", sans-serif; 
+        }
+        button:hover { background: #e68a00; }
+        a { color: #ff9900; margin-right: 15px; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        img { max-width: 200px; margin: 20px 0; }
+        p { margin: 10px 0; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="/logo.png" alt="NoTrust Logo">
+    <h1>NoTrust: Browse Listings</h1>
+    <p>Find services below and fund escrow to start.</p>
+
+    <div class="listings">
+        <div class="listing-card">
+            <h3>Logo Design</h3>
+            <p>Seller: designer@rockwallet.com</p>
+            <p>Description: Logo, PNG 500x500px</p>
+            <p>Price: 60 MNEE</p>
+            <p>Delivery: 7 days from escrow funding</p>
+            <p>Status: Awaiting Funding</p>
+            <button onclick="window.location.href='/accept.html'">Accept Job</button>
+        </div>
+        <div class="listing-card">
+            <h3>Website Mockup</h3>
+            <p>Seller: dev@rockwallet.com</p>
+            <p>Description: Figma mockup, 3 pages</p>
+            <p>Price: 100 MNEE</p>
+            <p>Delivery: 10 days from escrow funding</p>
+            <p>Status: Awaiting Funding</p>
+            <button onclick="window.location.href='/accept.html'">Accept Job</button>
+        </div>
+    </div>
+
+    <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
+    <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
+    <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/listings.html">Browse Listings</a><a href="/accept.html">Purchase Services</a></p>
+    <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
+
+    <script src="/lock.js"></script>
+</body>
+</html>
