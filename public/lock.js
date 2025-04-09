@@ -48,4 +48,88 @@
                 <button type="button" onclick="adjustDays(-1)">-</button>
                 <button type="button" onclick="adjustDays(1)">+</button>
             </div>
-            <p><small>Deadline is counted in days (not hours) from when Buyer funds escrow
+            <p><small>Deadline is counted in days (not hours) from when Buyer funds escrow.</small></p>
+
+            <label for="price">Quoted Price (MNEE):</label>
+            <div class="price-selector">
+                <input type="number" id="price" name="price" min="20" required>
+                <button type="button" onclick="adjustPrice(-1)">-</button>
+                <button type="button" onclick="adjustPrice(1)">+</button>
+            </div>
+            <p><small>Your price includes a 10 MNEE NoTrust fee. Deposit 20 MNEE, get 10 MNEE back unless arbitration favors Buyer.</small></p>
+
+            <button type="submit">Generate Escrow Address</button>
+        </form>
+        <div id="funding-details" style="display: none;">
+            <p>Send 20 MNEE to: <span id="escrow-paymail"></span></p>
+            <button onclick="copyAddress()">Copy Address</button>
+            <div id="qr-code"></div>
+            <p><a id="tx-link" href="#" target="_blank">View Transaction on WhatsOnChain</a></p>
+            <button onclick="checkStatus('seller')">Refresh Status</button>
+        </div>
+        <div id="status"></div>
+    </div>
+
+    <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
+    <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
+    <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
+    <p>Status updates shown below. Email confirmations coming in MVP.</p>
+
+    <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
+    <script src="https://unpkg.com/qrcode@1.5.1/qrcode.min.js"></script>
+    <script src="/lock.js"></script>
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('expiration').setAttribute('min', today);
+
+        function adjustDays(delta) {
+            const input = document.getElementById('delivery-days');
+            let value = parseInt(input.value || 0) + delta;
+            if (value < 1) value = 1;
+            input.value = value;
+        }
+
+        function adjustPrice(delta) {
+            const input = document.getElementById('price');
+            let value = parseInt(input.value || 0) + delta;
+            if (value < 20) value = 20;
+            input.value = value;
+        }
+
+        let currentTxid = '';
+        document.getElementById('seller-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const paymail = document.getElementById('paymail').value;
+            const description = document.getElementById('description').value;
+            const expiration = document.getElementById('expiration').value;
+            const deliveryDays = parseInt(document.getElementById('delivery-days').value);
+            const price = parseFloat(document.getElementById('price').value);
+
+            try {
+                const result = await lockSellerStake(paymail, price, deliveryDays, description, expiration);
+                currentTxid = result.txid;
+                document.getElementById('escrow-paymail').innerText = result.escrowPaymail;
+                document.getElementById('funding-details').style.display = 'block';
+                document.getElementById('qr-code').innerHTML = '';
+                new QRCode(document.getElementById('qr-code'), result.escrowPaymail);
+                document.getElementById('tx-link').href = `https://whatsonchain.com/tx/${result.txid}`;
+                document.getElementById('status').innerText = 'Status: Awaiting Funding';
+                alert(`Send 20 MNEE to ${result.escrowPaymail} (QR below). TXID: ${result.txid}`);
+            } catch (e) {
+                alert('Failed to generate escrow—check console.');
+            }
+        });
+
+        function copyAddress() {
+            const paymail = document.getElementById('escrow-paymail').innerText;
+            navigator.clipboard.writeText(paymail);
+            alert('Address copied to clipboard!');
+        }
+
+        async function checkStatus(type) {
+            const status = await pollMempool(currentTxid);
+            document.getElementById('status').innerText = `Status: ${status === 'Confirmed' ? 'Listing Posted' : 'Awaiting Funding'}`;
+        }
+    </script>
+</body>
+</html>
