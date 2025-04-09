@@ -21,28 +21,6 @@
         button:hover { background: #e68a00; }
         strong { color: #e5e5e5; }
         small { font-size: 0.9em; }
-        .navbar { 
-            top: 0; 
-            width: 100%; 
-            display: flex; 
-            z-index: 1000; 
-            position: sticky; 
-            justify-content: center; 
-            background-color: #1a1a2e; 
-            padding: 24px 48px; 
-        }
-        .navbar-container { 
-            width: 100%; 
-            max-width: 1200px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-        }
-        .navbar-links { 
-            gap: 32px; 
-            display: flex; 
-            align-items: center; 
-        }
         .section { 
             max-width: 1200px; 
             margin: 0 auto; 
@@ -60,25 +38,86 @@
             border-radius: 8px; 
             border: 1px solid #e5e5e5; 
         }
+        .burger-menu { 
+            position: fixed; 
+            top: 16px; 
+            left: 16px; 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+        }
+        .burger-icon { 
+            width: 32px; 
+            height: 32px; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; 
+        }
+        .mobile-menu { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            background: #1a1a2e; 
+            z-index: 999; 
+            padding: 32px; 
+            flex-direction: column; 
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu img { margin-bottom: 48px; }
+        .mobile-links { 
+            gap: 16px; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .social-bar { 
+            position: fixed; 
+            top: 16px; 
+            right: 16px; 
+            display: flex; 
+            gap: 16px; 
+            z-index: 1000; 
+        }
+        .social-icon { 
+            width: 32px; 
+            height: 32px; 
+            cursor: pointer; 
+        }
+        .x-icon { 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; 
+        }
+        .tipjar-icon { 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; 
+        }
         @media (max-width: 767px) {
-            .navbar { padding: 16px; }
             .section { padding: 16px; }
-            .navbar-links { gap: 16px; }
+            .burger-menu { top: 8px; left: 8px; }
+            .social-bar { top: 8px; right: 8px; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-container">
-            <img src="/logo.png" alt="NoTrust Logo">
-            <div class="navbar-links">
-                <a href="#home">Home</a>
-                <a href="#how">How It Works</a>
-                <a href="#listings">Browse Listings</a>
-                <a href="#purchase">Purchase Services</a>
-            </div>
+    <!-- Hamburger Menu -->
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-icon"></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <img src="/logo.png" alt="NoTrust Logo">
+        <div class="mobile-links">
+            <a href="#home" onclick="toggleMenu()">Home</a>
+            <a href="#how" onclick="toggleMenu()">How It Works</a>
+            <a href="#listings" onclick="toggleMenu()">Browse Listings</a>
+            <a href="#purchase" onclick="toggleMenu()">Purchase Services</a>
         </div>
+    </div>
+
+    <!-- Social Bar -->
+    <div class="social-bar">
+        <a href="https://x.com/[yourhandle]" class="social-icon x-icon" title="Follow us on X"></a>
+        <div class="social-icon tipjar-icon" title="Tipjar (Coming Soon)"></div>
     </div>
 
     <!-- Home Section -->
@@ -177,6 +216,12 @@
         <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
     </div>
 
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
     <script src="/lock.js"></script>
 </body>
 </html>
