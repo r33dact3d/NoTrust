@@ -1,89 +1,77 @@
 // public/lock.js
 console.log('lock.js loaded - escrow automation starting');
 
-// Check if @bsv/sdk loaded from CDN
-const BSV = window.bsvsdk || { Crypto: { SHA256: (data) => `hash-${Date.now()}` } }; // Fallback if undefined
-const escrowPaymail = 'styraks@rockwallet';
+const BSV = window.bsvsdk || { Crypto: { SHA256: (data) => `hash-${Date.now()}` }, Transaction: function() { return { toString: () => 'stub-tx', addData: () => this, to: () => this, from: () => this, feePerKb: () => this }; } };
+const escrowDomain = 'notrust.escrow';
 
-// Lock Seller stake (20 MNEE)
 async function lockSellerStake(paymail, price, deliveryDays, description, expiration) {
     try {
-        const amount = 20; // Fixed 20 MNEE stake
-        const jobId = `job-${Date.now()}`; // Unique ID
-        const specsHash = BSV.Crypto.SHA256(description).toHex ? BSV.Crypto.SHA256(description).toHex() : `hash-${jobId}`; // Fallback hash
+        const amount = 20;
+        const jobId = `job-${Date.now()}`;
+        const specsHash = BSV.Crypto.SHA256(description).toHex ? BSV.Crypto.SHA256(description).toHex() : `hash-${jobId}`;
+        const escrowPaymail = `${jobId}@${escrowDomain}`;
         
-        // Simulate BSV TX (replace with real TX below)
-        console.log(`Locking ${amount} MNEE for Seller: ${paymail}, Price: ${price} MNEE, Delivery: ${deliveryDays} days, Desc: ${description}, Expires: ${expiration}`);
+        console.log(`Generating escrow for Seller: ${paymail}, Price: ${price} MNEE, Delivery: ${deliveryDays} days, Desc: ${description}, Expires: ${expiration}`);
         const opReturn = { jobId, sellerPayMail: paymail, price, deliveryDays, specsHash, expiration };
         console.log('OP_RETURN data:', opReturn);
 
-        // Real TX (stubbed until wallet integration)
         const tx = new BSV.Transaction()
-            .from(/* TODO: Wallet UTXOs */)
-            .to(escrowPaymail, amount * 1e8) // MNEE to Satoshis (assuming 1 MNEE = 1 USD = 1e8 Satoshis for now)
+            .from(/* Wallet UTXOs */)
+            .to(escrowPaymail, amount * 1e8)
             .addData(JSON.stringify(opReturn))
-            .feePerKb(1000); // Default fee
-        const txid = `stub-txid-seller-${jobId}`; // Replace with tx.hash once signed
-        
-        // Simulate broadcast (replace with real broadcast in Session 2)
+            .feePerKb(1000);
+        const txid = `stub-txid-seller-${jobId}`;
+
         console.log('Simulated TX:', tx.toString());
-        pollMempool(txid);
-        return { txid, jobId };
+        return { txid, jobId, escrowPaymail };
     } catch (e) {
         console.error('Seller lock failed:', e);
         throw e;
     }
 }
 
-// Lock Buyer stake (price + 10 MNEE)
 async function lockBuyerStake(buyerPaymail, sellerPaymail, price) {
     try {
-        const amount = price + 10; // Price + 10 MNEE deposit
-        console.log(`Locking ${amount} MNEE for Buyer: ${buyerPaymail}, Seller: ${sellerPaymail}, Job Price: ${price} MNEE`);
-        const opReturn = { buyerPayMail: buyerPaymail, sellerPayMail: sellerPaymail, price }; // Fixed typo
+        const amount = price + 10;
+        const jobId = `job-${Date.now()}`; // Should link to Seller’s jobId in production
+        const escrowPaymail = `${jobId}@${escrowDomain}`;
+        
+        console.log(`Generating escrow for Buyer: ${buyerPaymail}, Seller: ${sellerPaymail}, Job Price: ${price} MNEE`);
+        const opReturn = { buyerPayMail: buyerPaymail, sellerPayMail: sellerPaymail, price, jobId };
         console.log('OP_RETURN data:', opReturn);
 
-        // Real TX (stubbed until wallet integration)
         const tx = new BSV.Transaction()
-            .from(/* TODO: Wallet UTXOs */)
+            .from(/* Wallet UTXOs */)
             .to(escrowPaymail, amount * 1e8)
             .addData(JSON.stringify(opReturn))
             .feePerKb(1000);
-        const txid = `stub-txid-buyer-${Date.now()}`; // Replace with tx.hash
-        
+        const txid = `stub-txid-buyer-${jobId}`;
+
         console.log('Simulated TX:', tx.toString());
-        pollMempool(txid);
-        return { txid };
+        return { txid, jobId, escrowPaymail };
     } catch (e) {
         console.error('Buyer lock failed:', e);
         throw e;
     }
 }
 
-// Submit delivery
 async function submitDelivery(jobId, deliveryData) {
     const deliveryHash = BSV.Crypto.SHA256(deliveryData).toHex ? BSV.Crypto.SHA256(deliveryData).toHex() : `hash-${jobId}`;
     console.log(`Delivery for Job ${jobId}: Hash ${deliveryHash}`);
-    const opReturn = { jobId, deliveryHash };
-    console.log('OP_RETURN update:', opReturn);
+    console.log('OP_RETURN update:', { jobId, deliveryHash });
     return Date.now();
 }
 
-// Check dispute window (24 hours)
 function checkDisputeWindow(deliveryTime) {
     const now = Date.now();
-    const window = 24 * 60 * 60 * 1000; // 24 hours in ms
+    const window = 24 * 60 * 60 * 1000;
     return now - deliveryTime > window ? 'Closed' : 'Open';
 }
 
-// Release funds
 function releaseFunds(jobId, outcome, price) {
     const total = price + 20;
     if (outcome === 'happy') {
-        console.log(`Releasing for Job ${jobId}:`);
-        console.log(`${price - 10} MNEE to Seller`);
-        console.log(`10 MNEE to NoTrust`);
-        console.log(`10 MNEE refunded to Buyer`);
+        console.log(`Releasing for Job ${jobId}: ${price - 10} MNEE to Seller, 10 MNEE to NoTrust, 10 MNEE refunded to Buyer`);
     } else if (outcome === 'seller') {
         console.log(`${price} MNEE to Seller, 20 MNEE to NoTrust`);
     } else if (outcome === 'buyer') {
@@ -92,10 +80,10 @@ function releaseFunds(jobId, outcome, price) {
     return total;
 }
 
-// Poll mempool (WhatsOnChain API)
 async function pollMempool(txid) {
     try {
         const response = await fetch(`https://api.whatsonchain.com/v1/bsv/main/tx/${txid}/status`);
+        if (!response.ok) throw new Error('TX not found');
         const status = await response.json();
         console.log(`Mempool status for TXID ${txid}:`, status);
         return status.confirmed ? 'Confirmed' : 'Pending';
@@ -110,3 +98,4 @@ window.lockBuyerStake = lockBuyerStake;
 window.submitDelivery = submitDelivery;
 window.checkDisputeWindow = checkDisputeWindow;
 window.releaseFunds = releaseFunds;
+window.pollMempool = pollMempool;
