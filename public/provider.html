@@ -16,10 +16,13 @@
         a:hover { color: #e68a00; }
         img { max-width: 200px; margin: 20px 0; }
         input, button { padding: 10px; margin: 10px 0; font-family: "Exo 2", sans-serif; }
-        textarea { width: 100%; padding: 10px; margin: 10px 0; font-family: "Exo 2", sans-serif; resize: vertical; min-height: 150px; background: #1a1a2e; color: #e5e5e5; border: 1px solid #e5e5e5; border-radius: 5px; }
+        textarea { width: 100%; padding: 10px; margin: 10px 0; font-family: "Exo 2", sans-serif; resize: vertical; min-height: 150px; background: #ffffff; color: #101010; border: 1px solid #ff9900; border-radius: 5px; }
+        input[type="text"], input[type="number"] { width: 300px; background: #ffffff; color: #101010; border: 1px solid #ff9900; border-radius: 5px; }
         input[type="number"] { width: 100px; -moz-appearance: textfield; }
         input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
-        input[type="date"] { width: 200px; background: #1a1a2e; color: #e5e5e5; border: 1px solid #e5e5e5; border-radius: 5px; }
+        .number-controls { display: flex; align-items: center; gap: 10px; }
+        .number-btn { padding: 5px 10px; background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        .number-btn:hover { background: #e68a00; }
         button { background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; padding: 12px 24px; }
         button:hover { background: #e68a00; }
         strong { color: #e5e5e5; }
@@ -42,6 +45,7 @@
             .section { padding: 16px; }
             .burger-menu { top: 8px; left: 8px; }
             .social-bar { top: 8px; right: 8px; }
+            input[type="text"], textarea { width: 100%; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
@@ -68,8 +72,8 @@
         <h1>Create a Listing</h1>
         <p>Create a listing by filling out the details below.</p>
         <div class="form-group">
-            <label for="sellerEmail">Seller Email:</label><br>
-            <input type="email" id="sellerEmail" placeholder="seller@example.com" style="width: 300px;">
+            <label for="sellerWallet">Seller’s BSV Wallet (Paymail or Address):</label><br>
+            <input type="text" id="sellerWallet" placeholder="e.g., user@paymail.com or 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa">
         </div>
         <div class="form-group">
             <label for="serviceDescription">Service Description:</label><br>
@@ -77,14 +81,23 @@
         </div>
         <div class="form-group">
             <label for="price">Price (MNEE):</label><br>
-            <input type="number" id="price" placeholder="e.g., 50" min="0" step="1">
+            <div class="number-controls">
+                <button class="number-btn" onclick="adjustPrice(-1)">-</button>
+                <input type="number" id="price" placeholder="e.g., 50" min="0" step="1" value="0">
+                <button class="number-btn" onclick="adjustPrice(1)">+</button>
+            </div>
         </div>
         <div class="form-group">
-            <label for="deliveryDate">Delivery Date:</label><br>
-            <input type="date" id="deliveryDate" min="2025-04-10">
+            <label for="deliveryDays">Number of Days for Completion:</label><br>
+            <div class="number-controls">
+                <button class="number-btn" onclick="adjustDays(-1)">-</button>
+                <input type="number" id="deliveryDays" placeholder="e.g., 7" min="1" step="1" value="1">
+                <button class="number-btn" onclick="adjustDays(1)">+</button>
+            </div>
         </div>
         <button onclick="createListing()">Create Listing</button>
         <p>Once created, your Job ID will be generated (e.g., NTX-12345). Send this to a buyer via email or chat for them to fund escrow.</p>
+        <p><small>Note: Future update may include hyperlinkable Job IDs to auto-fill in the client section.</small></p>
         <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
         <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
         <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
@@ -96,18 +109,18 @@
         <p><small>Powered by <a href="https://buybsv.com/applications/">BSV</a>, <a href="https://mnee.io">MNEE</a> & <a href="https://rockwallet.com">RockWallet</a></small></p>
         <p>Here’s how you, as a Service Provider, can use NoTrust to sell services securely:</p>
         <h2>How Do I Get Started?</h2>
-        <p>Create a listing with your email, a detailed service description, price in MNEE, and delivery date. You’ll lock a 5K MNEE arbitration fee to ensure commitment.</p>
+        <p>Create a listing with your BSV wallet, a detailed service description, price in MNEE, and delivery timeframe. You’ll lock a 5K MNEE arbitration fee to ensure commitment.</p>
         <h2>What Happens After I List My Service?</h2>
         <p>Share your unique Job ID (e.g., NTX-12345) with a buyer. They’ll fund escrow with your price plus a 25K MNEE fee (20K for NoTrust, 5K for arbitration).</p>
         <h2>How Do I Get Paid?</h2>
-        <p>Deliver your service by the specified date. If the buyer approves (or doesn’t dispute within 24 hours), you receive your payment (e.g., 50 MNEE) and your 5K MNEE fee back. NoTrust keeps 20K MNEE.</p>
+        <p>Deliver your service within the specified days. If the buyer approves (or doesn’t dispute within 24 hours), you receive your payment (e.g., 50 MNEE) and your 5K MNEE fee back. NoTrust keeps 20K MNEE.</p>
         <h2>What If There’s a Dispute?</h2>
         <p>If the buyer disputes within 24 hours, we review your delivery against the specs:<br>
            - <strong>You Win</strong>: You get your payment (e.g., 50 MNEE) + 5K MNEE back, buyer loses 5K, NoTrust gets 15K MNEE.<br>
            - <strong>Buyer Wins</strong>: Buyer gets a full refund + 5K MNEE, you lose 5K, NoTrust gets 15K MNEE.</p>
         <h2>How Do I Avoid Problems?</h2>
-        <p>- Use precise specs (e.g., “JPG, 300 DPI,” not “nice design”).<br>
-           - Deliver by your set date—missed deadlines mean automatic loss.<br>
+        <p>- Use precise specs (e.g., “JPG, 300 DPI,” not “pretty”).<br>
+           - Deliver within your set days—missed deadlines mean automatic loss.<br>
            - Upload proof (e.g., file hash) to BSV to strengthen your case in disputes.</p>
         <p>Questions? Hit us up on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
     </div>
@@ -116,6 +129,18 @@
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('active');
+        }
+        function adjustPrice(delta) {
+            const price = document.getElementById('price');
+            let value = parseInt(price.value) || 0;
+            value = Math.max(0, value + delta);
+            price.value = value;
+        }
+        function adjustDays(delta) {
+            const days = document.getElementById('deliveryDays');
+            let value = parseInt(days.value) || 1;
+            value = Math.max(1, value + delta);
+            days.value = value;
         }
     </script>
     <script src="/lock.js"></script>
