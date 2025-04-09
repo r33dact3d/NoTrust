@@ -96,4 +96,15 @@
         document.getElementById('seller-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const paymail = document.getElementById('paymail').value;
-            const description
+            const description = document.getElementById('description').value;
+            const expiration = document.getElementById('expiration').value;
+            const deliveryDays = parseInt(document.getElementById('delivery-days').value);
+            const price = parseFloat(document.getElementById('price').value);
+            const sellerStake = 20; // 20 MNEE stake (Fee + Penalty)
+            console.log(`Seller Job Posted:\nPayMail/BSV: ${paymail}\nService: ${description}\nExpiration: ${expiration}\nDelivery: ${deliveryDays} days from escrow\nPrice: ${price} MNEE\nSeller Stake: ${sellerStake} MNEE locked to escrow`);
+            alert(`Job Posted! Please manually send 20 MNEE to escrow: styraks@rockwallet (stub—automated in MVP). Expires ${expiration} if no Buyer. Delivery: ${deliveryDays} days after escrow funded.`);
+            // TODO: Integrate lock.js to send 20 MNEE automatically
+        });
+    </script>
+</body>
+</html>
