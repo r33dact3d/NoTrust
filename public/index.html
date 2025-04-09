@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoTrust - Trustless Escrow</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px; 
-            background: #101010; 
-            color: #ffffff; 
-        }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #101010; color: #ffffff; }
         h1 { font-family: 'Audiowide', sans-serif; }
         .form-section { margin: 20px 0; }
         label { display: block; margin: 10px 0 5px; }
@@ -26,6 +19,8 @@
         .days-selector, .price-selector { display: flex; align-items: center; }
         .days-selector input, .price-selector input { width: 60px; margin-right: 10px; }
         .days-selector button, .price-selector button { padding: 8px 12px; font-size: 16px; }
+        #funding-details, #status { margin-top: 10px; }
+        #qr-code { margin: 10px 0; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 </head>
@@ -53,7 +48,7 @@
                 <button type="button" onclick="adjustDays(-1)">-</button>
                 <button type="button" onclick="adjustDays(1)">+</button>
             </div>
-            <p><small>Deadline is counted in days (not hours) from when Buyer funds escrow. Check site for escrow status until automated in MVP.</small></p>
+            <p><small>Deadline is counted in days (not hours) from when Buyer funds escrow.</small></p>
 
             <label for="price">Quoted Price (MNEE):</label>
             <div class="price-selector">
@@ -61,18 +56,27 @@
                 <button type="button" onclick="adjustPrice(-1)">-</button>
                 <button type="button" onclick="adjustPrice(1)">+</button>
             </div>
-            <p><small>Your price includes a 10 MNEE NoTrust fee, deducted from payout or otherwise refunded if Service Listing is canceled without Escrow. You are depositing 20 MNEE for fees but will receive a 10 MNEE refund unless your client submits a winning arbitration.</small></p>
+            <p><small>Your price includes a 10 MNEE NoTrust fee. Deposit 20 MNEE, get 10 MNEE back unless arbitration favors Buyer.</small></p>
 
-            <button type="submit">Lock 20 MNEE Stake & Post Job</button>
+            <button type="submit">Generate Escrow Address</button>
         </form>
+        <div id="funding-details" style="display: none;">
+            <p>Send 20 MNEE to: <span id="escrow-paymail"></span></p>
+            <button onclick="copyAddress()">Copy Address</button>
+            <div id="qr-code"></div>
+            <p><a id="tx-link" href="#" target="_blank">View Transaction on WhatsOnChain</a></p>
+            <button onclick="checkStatus('seller')">Refresh Status</button>
+        </div>
+        <div id="status"></div>
     </div>
 
     <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
     <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
     <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
-    <p>Status updates (e.g., “Listing Posted”, “Escrow Funded”) will be shown on-site. Email confirmations and editing coming in MVP via PayMail/BSV address.</p>
+    <p>Status updates shown below. Email confirmations coming in MVP.</p>
 
     <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
+    <script src="https://unpkg.com/qrcode@1.5.1/qrcode.min.js"></script>
     <script src="/lock.js"></script>
     <script>
         const today = new Date().toISOString().split('T')[0];
@@ -92,6 +96,7 @@
             input.value = value;
         }
 
+        let currentTxid = '';
         document.getElementById('seller-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const paymail = document.getElementById('paymail').value;
@@ -99,15 +104,32 @@
             const expiration = document.getElementById('expiration').value;
             const deliveryDays = parseInt(document.getElementById('delivery-days').value);
             const price = parseFloat(document.getElementById('price').value);
-            
+
             try {
                 const result = await lockSellerStake(paymail, price, deliveryDays, description, expiration);
-                console.log('Seller TXID:', result.txid);
-                alert(`Job Posted! TXID: ${result.txid} (stub—check console). Expires ${expiration} if no Buyer. Delivery: ${deliveryDays} days after escrow funded.`);
+                currentTxid = result.txid;
+                document.getElementById('escrow-paymail').innerText = result.escrowPaymail;
+                document.getElementById('funding-details').style.display = 'block';
+                document.getElementById('qr-code').innerHTML = '';
+                new QRCode(document.getElementById('qr-code'), result.escrowPaymail);
+                document.getElementById('tx-link').href = `https://whatsonchain.com/tx/${result.txid}`;
+                document.getElementById('status').innerText = 'Status: Awaiting Funding';
+                alert(`Send 20 MNEE to ${result.escrowPaymail} (QR below). TXID: ${result.txid}`);
             } catch (e) {
-                alert('Failed to post job—check console for details.');
+                alert('Failed to generate escrow—check console.');
             }
         });
+
+        function copyAddress() {
+            const paymail = document.getElementById('escrow-paymail').innerText;
+            navigator.clipboard.writeText(paymail);
+            alert('Address copied to clipboard!');
+        }
+
+        async function checkStatus(type) {
+            const status = await pollMempool(currentTxid);
+            document.getElementById('status').innerText = `Status: ${status === 'Confirmed' ? 'Listing Posted' : 'Awaiting Funding'}`;
+        }
     </script>
 </body>
 </html>
