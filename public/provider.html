@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoTrust - Service Providers</title>
+    <link rel="icon" href="logo.png">
+    <style>
+        html { font-family: "Exo 2", Arial, sans-serif; font-size: 16px; line-height: 1.15; scroll-behavior: smooth; }
+        body { margin: 0; background: #101010; color: #e5e5e5; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; margin: 0 0 24px; font-size: 2.5rem; }
+        h2 { font-family: "Exo 2", sans-serif; color: #ff9900; margin: 48px 0 24px; font-size: 1.75rem; }
+        p { margin: 10px 0; line-height: 1.6; }
+        a { color: #ff9900; text-decoration: none; }
+        a:hover { color: #e68a00; }
+        img { max-width: 200px; margin: 20px 0; }
+        input, button { padding: 10px; margin: 5px 0; font-family: "Exo 2", sans-serif; }
+        button { background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #e68a00; }
+        strong { color: #e5e5e5; }
+        small { font-size: 0.9em; }
+        .section { max-width: 1200px; margin: 0 auto; padding: 48px; }
+        .section:nth-child(odd) { background: #101010; }
+        .section:nth-child(even) { background: #1a1a2e; }
+        .burger-menu { 
+            position: fixed; 
+            top: 16px; 
+            left: 16px; 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+        }
+        .burger-icon { 
+            width: 32px; 
+            height: 32px; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; 
+        }
+        .mobile-menu { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            background: #1a1a2e; 
+            z-index: 999; 
+            padding: 32px; 
+            flex-direction: column; 
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu img { margin-bottom: 48px; }
+        .mobile-links { gap: 16px; display: flex; flex-direction: column; }
+        .social-bar { 
+            position: fixed; 
+            top: 16px; 
+            right: 16px; 
+            display: flex; 
+            gap: 16px; 
+            z-index: 1000; 
+        }
+        .social-icon { width: 32px; height: 32px; cursor: pointer; }
+        .x-icon { 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; 
+        }
+        .tipjar-icon { 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; 
+        }
+        @media (max-width: 767px) {
+            .section { padding: 16px; }
+            .burger-menu { top: 8px; left: 8px; }
+            .social-bar { top: 8px; right: 8px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-icon"></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <img src="/logo.png" alt="NoTrust Logo">
+        <div class="mobile-links">
+            <a href="#create" onclick="toggleMenu()">Create a Listing</a>
+            <a href="#how" onclick="toggleMenu()">How It Works</a>
+            <a href="/index.html" onclick="toggleMenu()">Back to Home</a>
+        </div>
+    </div>
+    <div class="social-bar">
+        <a href="https://x.com/[yourhandle]" class="social-icon x-icon" title="Follow us on X"></a>
+        <div class="social-icon tipjar-icon" title="Tipjar (Coming Soon)"></div>
+    </div>
+
+    <!-- Create a Listing Section -->
+    <div id="create" class="section">
+        <h1>Create a Listing</h1>
+        <p>Create a listing by filling out the Seller details below.</p>
+        <p>Seller Email: <input type="email" id="sellerEmail" placeholder="seller@example.com"></p>
+        <p>Service Description: <input type="text" id="serviceDescription" placeholder="e.g., Logo Design, PNG 500x500px"></p>
+        <p>Price (MNEE): <input type="number" id="price" placeholder="e.g., 50"></p>
+        <p>Delivery Timeframe (days): <input type="number" id="deliveryTimeframe" placeholder="e.g., 7"></p>
+        <button onclick="createListing()">Create Listing</button>
+        <p>Once created, send your listing URL to a buyer via email or chat (e.g., notrust.vercel.app/client.html#purchase?sellerEmail=seller@example.com&serviceDescription=Logo%20Design,%20PNG%20500x500px&price=50&deliveryTimeframe=7).</p>
+        <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
+        <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
+        <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
+    </div>
+
+    <!-- How It Works Section -->
+    <div id="how" class="section">
+        <h1>How It Works</h1>
+        <p><small>Powered by <a href="https://buybsv.com/applications/">BSV</a>, <a href="https://mnee.io">MNEE</a> & <a href="https://rockwallet.com">RockWallet</a></small></p>
+        <p>NoTrust is a trustless escrow service using Monero Escrow (MNEE), a stablecoin pegged 1:1 to USD. Here’s how it all works:</p>
+        <h2>What’s the Big Picture?</h2>
+        <p>NoTrust locks payments in escrow on BSV using MNEE (1 MNEE = $1 USD). Providers deliver a service or product, buyers approve (or dispute), and funds release automatically—or we arbitrate if needed. It’s trustless: no one holds your money but the blockchain.</p>
+        <h2>What Happens When Everyone’s Happy?</h2>
+        <p>1. Provider posts a job (e.g., “Logo, PNG, 500x500px, $50”), locks 5K MNEE arbitration fee.<br>
+           2. Buyer funds the amount + 25K MNEE (20K NoTrust fee + 5K arbitration).<br>
+           3. Provider delivers by deadline, buyer doesn’t dispute within 24 hours.<br>
+           4. Funds release: provider gets job amount (e.g., 50 MNEE), NoTrust gets 20K MNEE, both get 5K MNEE back.</p>
+        <h2>What If the Buyer’s Unhappy?</h2>
+        <p>Buyer disputes within 24 hours, we check the specs (e.g., “PNG, 500x500px”):<br>
+           - <strong>Buyer Wins</strong>: Full refund (e.g., 50 MNEE) + 5K MNEE, provider loses 5K, NoTrust gets 15K MNEE.<br>
+           - <strong>Provider Wins</strong>: Job amount (e.g., 50 MNEE) + 5K MNEE, buyer loses 5K, NoTrust gets 15K MNEE.</p>
+        <h2>What If the Deadline’s Missed?</h2>
+        <p>Provider misses the deadline, buyer disputes. If undelivered, buyer wins automatically—same refund split as above.</p>
+        <h2>What Are Best Practices for Providers?</h2>
+        <p>- Use clear, objective specs (e.g., “JPG, 300 DPI,” not “pretty”).<br>
+           - Deliver on time—missed deadlines favor the buyer.<br>
+           - Upload proof (e.g., file hash) to BSV to win disputes.</p>
+        <h2>What Are Tips for Buyers?</h2>
+        <p>- Review specs before funding—disputes hinge on them, not opinions (e.g., “ugly” doesn’t count).<br>
+           - Dispute within 24 hours of delivery, or funds release.</p>
+        <p>Questions? Hit us up on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
+        <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
+    <script src="/lock.js"></script>
+</body>
+</html>
