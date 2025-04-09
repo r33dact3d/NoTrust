@@ -5,91 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoTrust - Accept a Job</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #101010; color: #ffffff; }
-        h1 { font-family: 'Audiowide', sans-serif; }
-        .job { border: 1px solid #666666; padding: 10px; margin: 10px 0; }
-        label { display: block; margin: 10px 0 5px; }
-        input { padding: 8px; background: #333333; color: #ffffff; border: 1px solid #666666; }
-        button { padding: 10px 20px; background: #ff9900; color: #ffffff; border: none; cursor: pointer; }
-        button:hover { background: #e68a00; }
-        a { color: #ff9900; margin-right: 15px; }
+        html { font-family: "Exo 2", Arial, sans-serif; font-size: 16px; line-height: 1.15; scroll-behavior: smooth; }
+        body { margin: 0; background: #101010; color: #e5e5e5; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; margin: 0 0 24px; }
+        p { margin: 10px 0; }
+        a { color: #ff9900; text-decoration: none; }
+        a:hover { color: #e68a00; }
         img { max-width: 200px; margin: 20px 0; }
-        #funding-details, #status { margin-top: 10px; }
-        #qr-code { margin: 10px 0; }
+        input, button { padding: 10px; margin: 5px 0; font-family: "Exo 2", sans-serif; }
+        button { background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #e68a00; }
+        .navbar { 
+            top: 0; 
+            width: 100%; 
+            display: flex; 
+            z-index: 1000; 
+            position: sticky; 
+            justify-content: center; 
+            background-color: #1a1a2e; 
+            padding: 24px 48px; 
+        }
+        .navbar-container { 
+            width: 100%; 
+            max-width: 1200px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+        .navbar-links { 
+            gap: 32px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 24px 48px; 
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-    <img src="/logo.png" alt="NoTrust Logo">
-    <h1>NoTrust: Trustless Escrow with MNEE on BSV</h1>
-    <p>Purchase Services below.</p>
-
-    <div class="job">
-        <h3>Sample Job: Logo Design</h3>
-        <p>Seller: designer@rockwallet.com</p>
-        <p><small>(PayMail addresses are for MNEE/BSV payments only, not email)</small></p>
-        <p>Description: Logo, PNG 500x500px</p>
-        <p>Deadline: 7 days from escrow funding</p>
-        <p>Price: 60 MNEE</p>
-        <form id="buyer-form">
-            <label for="buyer-paymail">Your PayMail or other BSV address (e.g., client@rockwallet.com):</label>
-            <input type="text" id="buyer-paymail" name="buyer-paymail" required placeholder="client@rockwallet.com">
-
-            <label>10 MNEE Arbitration Fee refunded if unused or if Buyer wins arbitration.</label>
-
-            <button type="submit">Generate Escrow Address</button>
-        </form>
-        <div id="funding-details" style="display: none;">
-            <p>Send 70 MNEE to: <span id="escrow-paymail"></span></p>
-            <button onclick="copyAddress()">Copy Address</button>
-            <div id="qr-code"></div>
-            <p><a id="tx-link" href="#" target="_blank">View Transaction on WhatsOnChain</a></p>
-            <button onclick="checkStatus('buyer')">Refresh Status</button>
+    <div class="navbar">
+        <div class="navbar-container">
+            <img src="/logo.png" alt="NoTrust Logo">
+            <div class="navbar-links">
+                <a href="/index.html">Home</a>
+                <a href="/how.html">How It Works</a>
+                <a href="/listings.html">Browse Listings</a>
+                <a href="/accept.html">Purchase Services</a>
+            </div>
         </div>
-        <div id="status"></div>
     </div>
-
-    <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
-    <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
-    <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
-    <p>Status updates shown below. Email confirmations coming in MVP.</p>
-
-    <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
-    <script src="https://unpkg.com/qrcode@1.5.1/qrcode.min.js"></script>
+    <div class="content">
+        <h1>NoTrust: Accept a Job</h1>
+        <p>Buyer UI coming soon in MVP. For now, paste the URL or fill in details from the Seller to fund escrow.</p>
+        <p>URL from Seller: <input type="text" id="urlFromSeller" placeholder="e.g., notrust.vercel.app/accept.html?sellerEmail=seller@example.com&serviceDescription=Logo%20Design,%20PNG%20500x500px&price=50&deliveryTimeframe=7"></p>
+        <p>OR</p>
+        <p>Seller Email: <input type="email" id="sellerEmail" placeholder="seller@example.com"></p>
+        <p>Service Description: <input type="text" id="serviceDescription" placeholder="e.g., Logo Design, PNG 500x500px"></p>
+        <p>Price (MNEE): <input type="number" id="price" placeholder="e.g., 50"></p>
+        <p>Delivery Timeframe (days): <input type="number" id="deliveryTimeframe" placeholder="e.g., 7"></p>
+        <button onclick="fundEscrow()">Fund Escrow</button>
+        <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
+        <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
+        <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
+    </div>
     <script src="/lock.js"></script>
-    <script>
-        let currentTxid = '';
-        document.getElementById('buyer-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const buyerPaymail = document.getElementById('buyer-paymail').value;
-            const sellerPaymail = 'designer@rockwallet.com'; // Hardcoded for sample
-            const price = 60; // Hardcoded for sample
-            
-            try {
-                const result = await lockBuyerStake(buyerPaymail, sellerPaymail, price);
-                currentTxid = result.txid;
-                document.getElementById('escrow-paymail').innerText = result.escrowPaymail;
-                document.getElementById('funding-details').style.display = 'block';
-                document.getElementById('qr-code').innerHTML = '';
-                new QRCode(document.getElementById('qr-code'), result.escrowPaymail);
-                document.getElementById('tx-link').href = `https://whatsonchain.com/tx/${result.txid}`;
-                document.getElementById('status').innerText = 'Status: Awaiting Funding';
-                alert(`Send 70 MNEE to ${result.escrowPaymail} (QR below). TXID: ${result.txid}`);
-            } catch (e) {
-                alert('Failed to generate escrow—check console.');
-            }
-        });
-
-        function copyAddress() {
-            const paymail = document.getElementById('escrow-paymail').innerText;
-            navigator.clipboard.writeText(paymail);
-            alert('Address copied to clipboard!');
-        }
-
-        async function checkStatus(type) {
-            const status = await pollMempool(currentTxid);
-            document.getElementById('status').innerText = `Status: ${status === 'Confirmed' ? 'Escrow Funded' : 'Awaiting Funding'}`;
-        }
-    </script>
 </body>
 </html>
