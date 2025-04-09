@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoTrust - Clients</title>
+    <title>NoTrust - Prospective Clients</title>
     <link rel="icon" href="logo.png">
     <style>
         html { font-family: "Exo 2", Arial, sans-serif; font-size: 16px; line-height: 1.15; scroll-behavior: smooth; }
@@ -16,69 +16,25 @@
         a { color: #ff9900; text-decoration: none; }
         a:hover { color: #e68a00; }
         img { max-width: 200px; margin: 20px 0; }
-        input, button { padding: 10px; margin: 5px 0; font-family: "Exo 2", sans-serif; }
-        button { background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        input, button { padding: 10px; margin: 10px 0; font-family: "Exo 2", sans-serif; }
+        button { background: #ff9900; color: #fff; border: none; border-radius: 5px; cursor: pointer; padding: 12px 24px; }
         button:hover { background: #e68a00; }
         .section { max-width: 1200px; margin: 0 auto; padding: 48px; }
         .section:nth-child(odd) { background: #101010; }
         .section:nth-child(even) { background: #1a1a2e; }
-        .listings { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 32px; 
-            margin: 32px 0; 
-        }
-        .listing-card { 
-            background: #1a1a2e; 
-            padding: 24px; 
-            border-radius: 8px; 
-            border: 1px solid #e5e5e5; 
-        }
-        .burger-menu { 
-            position: fixed; 
-            top: 16px; 
-            left: 16px; 
-            z-index: 1000; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-        }
-        .burger-icon { 
-            width: 32px; 
-            height: 32px; 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; 
-        }
-        .mobile-menu { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100vh; 
-            background: #1a1a2e; 
-            z-index: 999; 
-            padding: 32px; 
-            flex-direction: column; 
-        }
+        .listings { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin: 32px 0; }
+        .listing-card { background: #1a1a2e; padding: 24px; border-radius: 8px; border: 1px solid #e5e5e5; }
+        .form-group { margin-bottom: 20px; }
+        .burger-menu { position: fixed; top: 16px; left: 16px; z-index: 1000; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .burger-icon { width: 32px; height: 32px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #1a1a2e; z-index: 999; padding: 32px; flex-direction: column; }
         .mobile-menu.active { display: flex; }
         .mobile-menu img { margin-bottom: 48px; }
         .mobile-links { gap: 16px; display: flex; flex-direction: column; }
-        .social-bar { 
-            position: fixed; 
-            top: 16px; 
-            right: 16px; 
-            display: flex; 
-            gap: 16px; 
-            z-index: 1000; 
-        }
+        .social-bar { position: fixed; top: 16px; right: 16px; display: flex; gap: 16px; z-index: 1000; }
         .social-icon { width: 32px; height: 32px; cursor: pointer; }
-        .x-icon { 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; 
-        }
-        .tipjar-icon { 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; 
-        }
+        .x-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
+        .tipjar-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; }
         @media (max-width: 767px) {
             .section { padding: 16px; }
             .burger-menu { top: 8px; left: 8px; }
@@ -96,6 +52,7 @@
         <div class="mobile-links">
             <a href="#listings" onclick="toggleMenu()">Browse Listings</a>
             <a href="#purchase" onclick="toggleMenu()">Purchase Services</a>
+            <a href="#how" onclick="toggleMenu()">How It Works</a>
             <a href="/index.html" onclick="toggleMenu()">Back to Home</a>
         </div>
     </div>
@@ -115,8 +72,9 @@
                 <p>Description: Logo, PNG 500x500px</p>
                 <p>Price: 60 MNEE</p>
                 <p>Delivery: 7 days from escrow funding</p>
+                <p>Job ID: NTX-12345</p>
                 <p>Status: Awaiting Funding</p>
-                <button onclick="window.location.href='#purchase'">Accept Job</button>
+                <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
             <div class="listing-card">
                 <h3>Website Mockup</h3>
@@ -124,8 +82,9 @@
                 <p>Description: Figma mockup, 3 pages</p>
                 <p>Price: 100 MNEE</p>
                 <p>Delivery: 10 days from escrow funding</p>
+                <p>Job ID: NTX-12346</p>
                 <p>Status: Awaiting Funding</p>
-                <button onclick="window.location.href='#purchase'">Accept Job</button>
+                <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
         </div>
         <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
@@ -136,17 +95,36 @@
     <!-- Purchase Services Section -->
     <div id="purchase" class="section">
         <h1>Purchase Services</h1>
-        <p>Buyer UI coming soon in MVP. For now, paste the URL or fill in details from the Seller to fund escrow.</p>
-        <p>URL from Seller: <input type="text" id="urlFromSeller" placeholder="e.g., notrust.vercel.app/client.html#purchase?sellerEmail=seller@example.com&serviceDescription=Logo%20Design,%20PNG%20500x500px&price=50&deliveryTimeframe=7"></p>
-        <p>OR</p>
-        <p>Seller Email: <input type="email" id="sellerEmailPurchase" placeholder="seller@example.com"></p>
-        <p>Service Description: <input type="text" id="serviceDescriptionPurchase" placeholder="e.g., Logo Design, PNG 500x500px"></p>
-        <p>Price (MNEE): <input type="number" id="pricePurchase" placeholder="e.g., 50"></p>
-        <p>Delivery Timeframe (days): <input type="number" id="deliveryTimeframePurchase" placeholder="e.g., 7"></p>
+        <p>Buyer UI coming soon in MVP. For now, enter the Job ID from the Seller to fund escrow.</p>
+        <div class="form-group">
+            <label for="jobId">Job ID:</label><br>
+            <input type="text" id="jobId" placeholder="e.g., NTX-12345" style="width: 200px;">
+        </div>
         <button onclick="fundEscrow()">Fund Escrow</button>
         <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
         <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
         <p>Status updates shown on-site. Email confirmations coming in MVP.</p>
+    </div>
+
+    <!-- How It Works (Client) Section -->
+    <div id="how" class="section">
+        <h1>How It Works for Prospective Clients</h1>
+        <p><small>Powered by <a href="https://buybsv.com/applications/">BSV</a>, <a href="https://mnee.io">MNEE</a> & <a href="https://rockwallet.com">RockWallet</a></small></p>
+        <p>Here’s how you, as a Prospective Client, can use NoTrust to buy services securely:</p>
+        <h2>How Do I Find a Service?</h2>
+        <p>Browse listings to find a service you need. Each listing shows the seller, description, price, delivery date, and a unique Job ID (e.g., NTX-12345).</p>
+        <h2>How Do I Pay?</h2>
+        <p>Use the Job ID to fund escrow with the listed price plus a 25K MNEE fee (20K for NoTrust, 5K for arbitration). Your funds are locked securely on BSV.</p>
+        <h2>What Happens After I Fund Escrow?</h2>
+        <p>The seller delivers by the listed date. If it meets the specs and you’re happy (or don’t dispute within 24 hours), the seller gets paid, you lose 5K MNEE, and NoTrust keeps 20K MNEE.</p>
+        <h2>What If I’m Not Satisfied?</h2>
+        <p>Dispute within 24 hours of delivery. We check the specs:<br>
+           - <strong>You Win</strong>: Full refund (e.g., 50 MNEE) + 5K MNEE back, seller loses 5K, NoTrust gets 15K MNEE.<br>
+           - <strong>Seller Wins</strong>: Seller gets payment + 5K MNEE, you lose 5K, NoTrust gets 15K MNEE.</p>
+        <h2>How Do I Protect Myself?</h2>
+        <p>- Check specs before funding—disputes are based on them, not subjective opinions (e.g., “ugly” doesn’t count).<br>
+           - Dispute within 24 hours if the delivery doesn’t match, or funds release automatically.</p>
+        <p>Questions? Hit us up on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
     </div>
 
     <script>
