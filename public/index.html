@@ -75,11 +75,9 @@
     <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
     <script src="/lock.js"></script>
     <script>
-        // Set min date to today
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('expiration').setAttribute('min', today);
 
-        // Adjust delivery days
         function adjustDays(delta) {
             const input = document.getElementById('delivery-days');
             let value = parseInt(input.value || 0) + delta;
@@ -87,7 +85,6 @@
             input.value = value;
         }
 
-        // Adjust price
         function adjustPrice(delta) {
             const input = document.getElementById('price');
             let value = parseInt(input.value || 0) + delta;
