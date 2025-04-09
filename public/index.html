@@ -21,6 +21,9 @@
         button:hover { background: #e68a00; }
         a { color: #ff9900; }
         img { max-width: 200px; margin: 20px 0; }
+        .days-selector { display: flex; align-items: center; }
+        .days-selector input { width: 60px; margin-right: 10px; }
+        .days-selector button { padding: 8px 12px; font-size: 16px; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 </head>
@@ -40,7 +43,15 @@
 
             <label for="expiration">Listing Expiration Date (if no Buyer found):</label>
             <input type="date" id="expiration" name="expiration" required>
-            <p><small>Delivery deadline: 7 days from escrow funding by a Buyer.</small></p>
+            <p><small>If no Buyer funds escrow, your $20 stake is refunded after this date.</small></p>
+
+            <label for="delivery-days">Delivery Deadline (days from escrow funding):</label>
+            <div class="days-selector">
+                <input type="number" id="delivery-days" name="delivery-days" min="1" step="1" value="7" required>
+                <button type="button" onclick="adjustDays(-1)">-</button>
+                <button type="button" onclick="adjustDays(1)">+</button>
+            </div>
+            <p><small>Deadline is counted in days (not hours) from when Buyer funds escrow. Check site for escrow status until automated in MVP.</small></p>
 
             <label for="price">Quoted Price (USD/MNEE):</label>
             <input type="number" id="price" name="price" min="60" step="1" required placeholder="Minimum $60" value="60">
@@ -59,15 +70,24 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('expiration').setAttribute('min', today);
 
+        // Adjust delivery days
+        function adjustDays(delta) {
+            const input = document.getElementById('delivery-days');
+            let value = parseInt(input.value) + delta;
+            if (value < 1) value = 1;
+            input.value = value;
+        }
+
         document.getElementById('seller-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const paymail = document.getElementById('paymail').value;
             const description = document.getElementById('description').value;
             const expiration = document.getElementById('expiration').value;
+            const deliveryDays = parseInt(document.getElementById('delivery-days').value);
             const price = parseFloat(document.getElementById('price').value);
             const sellerStake = 20; // $20 stake (Fee + Penalty)
-            console.log(`Seller Job Posted:\nPayMail/BSV: ${paymail}\nService: ${description}\nExpiration: ${expiration}\nPrice: $${price}\nSeller Stake: $${sellerStake} locked to escrow`);
-            alert(`Job Posted! Please manually send $20 MNEE to escrow: styraks@rockwallet (stub—automated in MVP). Expires ${expiration} if no Buyer.`);
+            console.log(`Seller Job Posted:\nPayMail/BSV: ${paymail}\nService: ${description}\nExpiration: ${expiration}\nDelivery: ${deliveryDays} days from escrow\nPrice: $${price}\nSeller Stake: $${sellerStake} locked to escrow`);
+            alert(`Job Posted! Please manually send $20 MNEE to escrow: styraks@rockwallet (stub—automated in MVP). Expires ${expiration} if no Buyer. Delivery: ${deliveryDays} days after escrow funded.`);
             // TODO: Integrate lock.js to send $20 automatically
         });
     </script>
