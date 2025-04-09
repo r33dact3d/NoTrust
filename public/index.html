@@ -30,18 +30,19 @@
     <div class="form-section">
         <h2>Seller: Post Your Service</h2>
         <form id="seller-form">
-            <label for="paymail">Your PayMail (e.g., designer@rockwallet):</label>
-            <input type="email" id="paymail" name="paymail" required placeholder="designer@rockwallet">
+            <label for="paymail">Your PayMail or other BSV address (e.g., designer@rockwallet.com):</label>
+            <input type="text" id="paymail" name="paymail" required placeholder="designer@rockwallet.com">
 
             <label for="description">Service Description (e.g., “Logo, PNG 500x500px”):</label>
             <textarea id="description" name="description" required placeholder="Describe your service (file type, size, etc.)"></textarea>
 
-            <label for="deadline">Delivery Deadline (e.g., “April 15, 2025”):</label>
-            <input type="date" id="deadline" name="deadline" required>
+            <label for="expiration">Listing Expiration Date (if no Buyer found):</label>
+            <input type="date" id="expiration" name="expiration" required>
+            <p><small>Delivery deadline: 7 days from escrow funding by a Buyer.</small></p>
 
             <label for="price">Quoted Price (USD/MNEE):</label>
             <input type="number" id="price" name="price" min="60" step="1" required placeholder="Minimum $60" value="60">
-            <p><small>Your price includes a $10 NoTrust fee, deducted at payout. You’ll lock a $20 stake (refunded if delivered).</small></p>
+            <p><small>Your price includes a $10 NoTrust fee, deducted from payout or otherwise refunded if Service Listing is canceled without Escrow. You are depositing $20 for fees but will receive a $10 refund unless your client submits a winning arbitration.</small></p>
 
             <button type="submit">Lock $20 Stake & Post Job</button>
         </form>
@@ -49,18 +50,23 @@
 
     <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
     <p>Learn more: <a href="/how.html">How It Works</a></p>
+    <p>Status updates (e.g., “Listing Posted”, “Escrow Funded”) will be shown on-site. Email confirmations coming post-MVP.</p>
 
     <script>
+        // Set min date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('expiration').setAttribute('min', today);
+
         document.getElementById('seller-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const paymail = document.getElementById('paymail').value;
             const description = document.getElementById('description').value;
-            const deadline = document.getElementById('deadline').value;
+            const expiration = document.getElementById('expiration').value;
             const price = parseFloat(document.getElementById('price').value);
             const sellerStake = 20; // $20 stake (Fee + Penalty)
-            console.log(`Seller Job Posted:\nPayMail: ${paymail}\nService: ${description}\nDeadline: ${deadline}\nPrice: $${price}\nSeller Stake: $${sellerStake} locked to escrow`);
-            alert(`Job posted! Please send $20 MNEE to escrow: styraks@rockwallet (test stub).`);
-            // TODO: Replace with lock.js call when ready
+            console.log(`Seller Job Posted:\nPayMail/BSV: ${paymail}\nService: ${description}\nExpiration: ${expiration}\nPrice: $${price}\nSeller Stake: $${sellerStake} locked to escrow`);
+            alert(`Job Posted! Please manually send $20 MNEE to escrow: styraks@rockwallet (stub—automated in MVP). Expires ${expiration} if no Buyer.`);
+            // TODO: Integrate lock.js to send $20 automatically
         });
     </script>
 </body>
