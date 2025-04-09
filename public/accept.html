@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoTrust - Accept a Job</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px; 
-            background: #101010; 
-            color: #ffffff; 
-        }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #101010; color: #ffffff; }
         h1 { font-family: 'Audiowide', sans-serif; }
         .job { border: 1px solid #666666; padding: 10px; margin: 10px 0; }
         label { display: block; margin: 10px 0 5px; }
@@ -21,7 +14,8 @@
         button:hover { background: #e68a00; }
         a { color: #ff9900; margin-right: 15px; }
         img { max-width: 200px; margin: 20px 0; }
-        #status { margin-top: 10px; font-style: italic; }
+        #funding-details, #status { margin-top: 10px; }
+        #qr-code { margin: 10px 0; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 </head>
@@ -41,21 +35,30 @@
             <label for="buyer-paymail">Your PayMail or other BSV address (e.g., client@rockwallet.com):</label>
             <input type="text" id="buyer-paymail" name="buyer-paymail" required placeholder="client@rockwallet.com">
 
-            <label>10 MNEE Arbitration Fee refunded if Arbitration Function is not utilized. 60 MNEE Job Price + 10 MNEE Arbitration Fee refunded if Buyer submits and wins Arbitration.</label>
+            <label>10 MNEE Arbitration Fee refunded if unused or if Buyer wins arbitration.</label>
 
-            <button type="submit">Accept & Lock 70 MNEE</button>
+            <button type="submit">Generate Escrow Address</button>
         </form>
+        <div id="funding-details" style="display: none;">
+            <p>Send 70 MNEE to: <span id="escrow-paymail"></span></p>
+            <button onclick="copyAddress()">Copy Address</button>
+            <div id="qr-code"></div>
+            <p><a id="tx-link" href="#" target="_blank">View Transaction on WhatsOnChain</a></p>
+            <button onclick="checkStatus('buyer')">Refresh Status</button>
+        </div>
         <div id="status"></div>
     </div>
 
     <p>Need MNEE? Get started with <a href="https://rockwallet.com">RockWallet</a>, <a href="https://coinex.com">CoinEx</a>, or <a href="https://changelly.com">Changelly</a>.</p>
     <p>MNEE is a stablecoin pegged 1:1 to USD.</p>
     <p><a href="/index.html">Home</a><a href="/how.html">How It Works</a><a href="/accept.html">Purchase Services</a></p>
-    <p>Status updates (e.g., “Listing Posted”, “Escrow Funded”) will be shown on-site. Email confirmations and editing coming in MVP via PayMail/BSV address.</p>
+    <p>Status updates shown below. Email confirmations coming in MVP.</p>
 
     <script src="https://unpkg.com/@bsv/sdk@1.0.11/dist/bsv-sdk.min.js"></script>
+    <script src="https://unpkg.com/qrcode@1.5.1/qrcode.min.js"></script>
     <script src="/lock.js"></script>
     <script>
+        let currentTxid = '';
         document.getElementById('buyer-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const buyerPaymail = document.getElementById('buyer-paymail').value;
@@ -64,13 +67,29 @@
             
             try {
                 const result = await lockBuyerStake(buyerPaymail, sellerPaymail, price);
-                console.log('Buyer TXID:', result.txid);
-                alert(`Job Accepted! TXID: ${result.txid} (stub—check console).`);
-                document.getElementById('status').innerText = 'Status: Escrow Funded (stub—check back for updates)';
+                currentTxid = result.txid;
+                document.getElementById('escrow-paymail').innerText = result.escrowPaymail;
+                document.getElementById('funding-details').style.display = 'block';
+                document.getElementById('qr-code').innerHTML = '';
+                new QRCode(document.getElementById('qr-code'), result.escrowPaymail);
+                document.getElementById('tx-link').href = `https://whatsonchain.com/tx/${result.txid}`;
+                document.getElementById('status').innerText = 'Status: Awaiting Funding';
+                alert(`Send 70 MNEE to ${result.escrowPaymail} (QR below). TXID: ${result.txid}`);
             } catch (e) {
-                alert('Failed to accept job—check console for details.');
+                alert('Failed to generate escrow—check console.');
             }
         });
+
+        function copyAddress() {
+            const paymail = document.getElementById('escrow-paymail').innerText;
+            navigator.clipboard.writeText(paymail);
+            alert('Address copied to clipboard!');
+        }
+
+        async function checkStatus(type) {
+            const status = await pollMempool(currentTxid);
+            document.getElementById('status').innerText = `Status: ${status === 'Confirmed' ? 'Escrow Funded' : 'Awaiting Funding'}`;
+        }
     </script>
 </body>
 </html>
