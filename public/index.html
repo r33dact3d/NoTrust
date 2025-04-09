@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoTrust - Trustless Escrow</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #000000; 
+            color: #ffffff; 
+        }
         .form-section { margin: 20px 0; }
         label { display: block; margin: 10px 0 5px; }
-        input, textarea { width: 100%; padding: 8px; }
+        input, textarea { width: 100%; padding: 8px; background: #333333; color: #ffffff; border: 1px solid #666666; }
         button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background: #0056b3; }
+        a { color: #1e90ff; }
+        img { max-width: 200px; margin: 20px 0; }
     </style>
 </head>
 <body>
+    <img src="/logo.png" alt="NoTrust Logo">
     <h1>NoTrust: Trustless Escrow on BSV/MNEE</h1>
     <p>Create a job or service offer. Lock your stake, get paid trustlessly.</p>
 
@@ -46,9 +56,11 @@
             const paymail = document.getElementById('paymail').value;
             const description = document.getElementById('description').value;
             const deadline = document.getElementById('deadline').value;
-            const price = document.getElementById('price').value;
-            alert(`Job Posted!\nPayMail: ${paymail}\nService: ${description}\nDeadline: ${deadline}\nPrice: $${price}\nStake: $20 locked (escrow stub).`);
-            // TODO: Integrate with lock.js for real escrow logic
+            const price = parseFloat(document.getElementById('price').value);
+            const sellerStake = 20; // $20 stake (Fee + Penalty)
+            console.log(`Seller Job Posted:\nPayMail: ${paymail}\nService: ${description}\nDeadline: ${deadline}\nPrice: $${price}\nSeller Stake: $${sellerStake} locked to escrow`);
+            alert(`Job posted! Please send $20 MNEE to escrow: styraks@rockwallet (test stub).`);
+            // TODO: Replace with lock.js call when ready
         });
     </script>
 </body>
