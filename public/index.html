@@ -64,6 +64,7 @@
 
   <h2>For Providers: Post a Service/Product</h2>
   <form id="provider-form">
+    <input type="text" id="job-id" placeholder="Job ID (e.g., 123)" required>
     <input type="text" placeholder="Service/Product (e.g., Logo Design)" required>
     <input type="text" placeholder="Specs (e.g., PNG, 500x500px)" required>
     <input type="date" placeholder="Deadline" required>
@@ -77,9 +78,11 @@
 
   <div class="escrow">
     <h3>Escrow Details (After Posting)</h3>
+    <p>Job ID: <span id="display-job-id">123</span></p>
     <p>Send 5K MNEE arbitration fee to: <span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy</button></p>
     <p>Or use PayMail: <strong>job123@notrust</strong></p>
     <img src="qr.png" alt="Escrow QR Code" width="150">
+    <p>Share with buyer: <a href="/accept.html#123">notrust.vercel.app/accept.html#123</a></p>
     <p>Buyer will add amount + 25K MNEE (20K fee + 5K arbitration) to escrow.</p>
   </div>
 
@@ -97,6 +100,8 @@
   <script>
     const usdInput = document.getElementById('usd-amount');
     const mneeInput = document.getElementById('mnee-amount');
+    const jobIdInput = document.getElementById('job-id');
+    const displayJobId = document.getElementById('display-job-id');
     
     usdInput.addEventListener('input', () => {
       const usdValue = parseFloat(usdInput.value) || 0;
@@ -105,6 +110,9 @@
     mneeInput.addEventListener('input', () => {
       const mneeValue = parseFloat(mneeInput.value) || 0;
       usdInput.value = mneeValue;
+    });
+    jobIdInput.addEventListener('input', () => {
+      displayJobId.textContent = jobIdInput.value || '123';
     });
 
     function copyAddr() {
