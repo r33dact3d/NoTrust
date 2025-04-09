@@ -1,101 +1,51 @@
-// public/lock.js
-console.log('lock.js loaded - escrow automation starting');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoTrust - Trustless Escrow</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #101010; color: #ffffff; }
+        h1 { font-family: 'Audiowide', sans-serif; }
+        .form-section { margin: 20px 0; }
+        label { display: block; margin: 10px 0 5px; }
+        input, textarea { padding: 8px; background: #333333; color: #ffffff; border: 1px solid #666666; }
+        textarea { width: 100%; }
+        input[type="date"] { width: 160px; }
+        button { padding: 10px 20px; background: #ff9900; color: #ffffff; border: none; cursor: pointer; }
+        button:hover { background: #e68a00; }
+        a { color: #ff9900; margin-right: 15px; }
+        img { max-width: 200px; margin: 20px 0; }
+        .days-selector, .price-selector { display: flex; align-items: center; }
+        .days-selector input, .price-selector input { width: 60px; margin-right: 10px; }
+        .days-selector button, .price-selector button { padding: 8px 12px; font-size: 16px; }
+        #funding-details, #status { margin-top: 10px; }
+        #qr-code { margin: 10px 0; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="/logo.png" alt="NoTrust Logo">
+    <h1>NoTrust: Trustless Escrow with MNEE on BSV</h1>
+    <p>Create a job or service offer. Lock your stake, get paid trustlessly.</p>
 
-const BSV = window.bsvsdk || { Crypto: { SHA256: (data) => `hash-${Date.now()}` }, Transaction: function() { return { toString: () => 'stub-tx', addData: () => this, to: () => this, from: () => this, feePerKb: () => this }; } };
-const escrowDomain = 'notrust.escrow';
+    <div class="form-section">
+        <h2>Seller: Post Your Service</h2>
+        <form id="seller-form">
+            <label for="paymail">Your PayMail or other BSV address (e.g., designer@rockwallet.com):</label>
+            <input type="text" id="paymail" name="paymail" required placeholder="designer@rockwallet.com">
 
-async function lockSellerStake(paymail, price, deliveryDays, description, expiration) {
-    try {
-        const amount = 20;
-        const jobId = `job-${Date.now()}`;
-        const specsHash = BSV.Crypto.SHA256(description).toHex ? BSV.Crypto.SHA256(description).toHex() : `hash-${jobId}`;
-        const escrowPaymail = `${jobId}@${escrowDomain}`;
-        
-        console.log(`Generating escrow for Seller: ${paymail}, Price: ${price} MNEE, Delivery: ${deliveryDays} days, Desc: ${description}, Expires: ${expiration}`);
-        const opReturn = { jobId, sellerPayMail: paymail, price, deliveryDays, specsHash, expiration };
-        console.log('OP_RETURN data:', opReturn);
+            <label for="description">Service Description (e.g., “Logo, PNG 500x500px”):</label>
+            <textarea id="description" name="description" required placeholder="Describe your service (file type, size, etc.)"></textarea>
 
-        const tx = new BSV.Transaction()
-            .from(/* Wallet UTXOs */)
-            .to(escrowPaymail, amount * 1e8)
-            .addData(JSON.stringify(opReturn))
-            .feePerKb(1000);
-        const txid = `stub-txid-seller-${jobId}`;
+            <label for="expiration">Listing Expiration Date (if no Buyer found):</label>
+            <input type="date" id="expiration" name="expiration" required>
+            <p><small>If no Buyer funds escrow, your 20 MNEE stake is refunded after this date.</small></p>
 
-        console.log('Simulated TX:', tx.toString());
-        return { txid, jobId, escrowPaymail };
-    } catch (e) {
-        console.error('Seller lock failed:', e);
-        throw e;
-    }
-}
-
-async function lockBuyerStake(buyerPaymail, sellerPaymail, price) {
-    try {
-        const amount = price + 10;
-        const jobId = `job-${Date.now()}`; // Should link to Seller’s jobId in production
-        const escrowPaymail = `${jobId}@${escrowDomain}`;
-        
-        console.log(`Generating escrow for Buyer: ${buyerPaymail}, Seller: ${sellerPaymail}, Job Price: ${price} MNEE`);
-        const opReturn = { buyerPayMail: buyerPaymail, sellerPayMail: sellerPaymail, price, jobId };
-        console.log('OP_RETURN data:', opReturn);
-
-        const tx = new BSV.Transaction()
-            .from(/* Wallet UTXOs */)
-            .to(escrowPaymail, amount * 1e8)
-            .addData(JSON.stringify(opReturn))
-            .feePerKb(1000);
-        const txid = `stub-txid-buyer-${jobId}`;
-
-        console.log('Simulated TX:', tx.toString());
-        return { txid, jobId, escrowPaymail };
-    } catch (e) {
-        console.error('Buyer lock failed:', e);
-        throw e;
-    }
-}
-
-async function submitDelivery(jobId, deliveryData) {
-    const deliveryHash = BSV.Crypto.SHA256(deliveryData).toHex ? BSV.Crypto.SHA256(deliveryData).toHex() : `hash-${jobId}`;
-    console.log(`Delivery for Job ${jobId}: Hash ${deliveryHash}`);
-    console.log('OP_RETURN update:', { jobId, deliveryHash });
-    return Date.now();
-}
-
-function checkDisputeWindow(deliveryTime) {
-    const now = Date.now();
-    const window = 24 * 60 * 60 * 1000;
-    return now - deliveryTime > window ? 'Closed' : 'Open';
-}
-
-function releaseFunds(jobId, outcome, price) {
-    const total = price + 20;
-    if (outcome === 'happy') {
-        console.log(`Releasing for Job ${jobId}: ${price - 10} MNEE to Seller, 10 MNEE to NoTrust, 10 MNEE refunded to Buyer`);
-    } else if (outcome === 'seller') {
-        console.log(`${price} MNEE to Seller, 20 MNEE to NoTrust`);
-    } else if (outcome === 'buyer') {
-        console.log(`${price + 10} MNEE to Buyer, 20 MNEE to NoTrust`);
-    }
-    return total;
-}
-
-async function pollMempool(txid) {
-    try {
-        const response = await fetch(`https://api.whatsonchain.com/v1/bsv/main/tx/${txid}/status`);
-        if (!response.ok) throw new Error('TX not found');
-        const status = await response.json();
-        console.log(`Mempool status for TXID ${txid}:`, status);
-        return status.confirmed ? 'Confirmed' : 'Pending';
-    } catch (e) {
-        console.log(`Mempool check for ${txid} failed (stub—assuming pending):`, e);
-        return 'Pending';
-    }
-}
-
-window.lockSellerStake = lockSellerStake;
-window.lockBuyerStake = lockBuyerStake;
-window.submitDelivery = submitDelivery;
-window.checkDisputeWindow = checkDisputeWindow;
-window.releaseFunds = releaseFunds;
-window.pollMempool = pollMempool;
+            <label for="delivery-days">Delivery Deadline (days from escrow funding):</label>
+            <div class="days-selector">
+                <input type="number" id="delivery-days" name="delivery-days" min="1" required>
+                <button type="button" onclick="adjustDays(-1)">-</button>
+                <button type="button" onclick="adjustDays(1)">+</button>
+            </div>
+            <p><small>Deadline is counted in days (not hours) from when Buyer funds escrow
