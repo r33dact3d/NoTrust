@@ -1,2 +1,2 @@
 # NoTrust
-Trustless escrow for freelance jobs—$25-$50 in BSV/MNEE, paid on delivery. MVP building now.
+Trustless escrow for freelance jobs—$20-$50 in MNEE on BSV, paid on delivery. MVP building now.
