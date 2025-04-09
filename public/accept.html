@@ -11,7 +11,7 @@
       background-color: #000000; 
       color: #ffffff; 
     }
-    .job-list, .escrow, .onramp { 
+    .job-list, .escrow, .onramp, .delivery { 
       max-width: 600px; 
       margin: 20px auto; 
       text-align: left; 
@@ -21,7 +21,7 @@
       padding: 10px; 
       margin-bottom: 10px; 
     }
-    button { 
+    button, input[type="text"] { 
       padding: 8px; 
       font-size: 16px; 
       background-color: #333333; 
@@ -51,7 +51,7 @@
 </head>
 <body>
   <h1>NoTrust: Trustless Transactions</h1>
-  <p>Pay providers trustlessly—locked ‘til product delivered.</p>
+  <p>Pay Sellers trustlessly—locked ‘til product delivered.</p>
   <p><small>Powered by <a href="https://buybsv.com/applications/">BSV</a>, <a href="https://mnee.io">MNEE</a> & <a href="https://rockwallet.com">RockWallet</a></small></p>
   <img src="logo.png" alt="NoTrust Logo">
   <p><a href="/index.html">Post a Job</a> | <a href="/accept.html">Find a Job</a> | <a href="/how.html">How It Works</a></p>
@@ -63,21 +63,29 @@
       <p><strong>Service/Product:</strong> Logo Design</p>
       <p><strong>Specs:</strong> PNG, 500x500px</p>
       <p><strong>Deadline:</strong> April 15, 2025</p>
-      <p><strong>Amount:</strong> 50 MNEE ($50 USD)</p>
-      <p><strong>Provider:</strong> designer@rockwallet</p>
+      <p><strong>Amount:</strong> $60 USD</p>
+      <p><strong>Seller:</strong> designer@rockwallet</p>
       <button disabled>Accept Job (Coming Soon)</button>
     </div>
   </div>
 
   <div class="escrow">
     <h3>Escrow Details (After Accepting)</h3>
-    <p>Send 75 MNEE (50 MNEE job + 20K fee + 5K arbitration) to:</p>
-    <p><span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy предпочт
-
-</button></p>
+    <p>Send $70 ($60 job + $10 Penalty) to:</p>
+    <p><span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy</button></p>
     <p>Or use PayMail: <strong>job123@notrust</strong></p>
     <img src="qr.png" alt="Escrow QR Code" width="150">
-    <p>Provider has locked 5K MNEE—total escrow will be 80 MNEE.</p>
+    <p>Seller has locked $20—total escrow will be $90.</p>
+  </div>
+
+  <div class="delivery">
+    <h3>Delivery & Disputes</h3>
+    <p><strong>For Sellers:</strong> Submit delivery hash (e.g., sha256(file)):</p>
+    <input type="text" id="delivery-hash" placeholder="e.g., abc789">
+    <button onclick="submitDelivery()" disabled>Submit Delivery (Coming Soon)</button>
+    <p><strong>For Buyers:</strong> Dispute within 24 hours of delivery:</p>
+    <button onclick="submitDispute()" disabled>Dispute (Coming Soon)</button>
+    <p>No dispute in 24 hours: $50 to Seller, $10 to NoTrust, $20 back to Seller, $10 back to Buyer. Arbitration is final—see <a href="/how.html">How It Works</a>.</p>
   </div>
 
   <div class="onramp">
@@ -85,21 +93,4 @@
     <p>NoTrust uses MNEE (1 MNEE = $1 USD) for stable payments on BSV. Get MNEE from fiat:</p>
     <ul>
       <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card.</li>
-      <li><a href="https://coinex.com">CoinEx</a> - Buy BTC with fiat, swap to MNEE (via USDT).</li>
-      <li><a href="https://changelly.com">Changelly</a> - Buy BSV with fiat, swap to MNEE (e.g., CoinEx).</li>
-    </ul>
-    <p>Got MNEE? Send it to escrow to lock your transaction.</p>
-  </div>
-
-  <script>
-    const jobIdSpan = document.getElementById('job-id');
-    const hash = window.location.hash.slice(1); // Get #123 from URL
-    if (hash) jobIdSpan.textContent = hash; // Set Job ID from URL
-
-    function copyAddr() {
-      navigator.clipboard.writeText(document.getElementById('escrow-addr').innerText);
-      alert('Address copied!');
-    }
-  </script>
-</body>
-</html>
+      <li><a href="https://coinex.com">CoinEx</a> - Buy BTC with fiat, swap to MNEE (
