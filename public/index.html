@@ -45,7 +45,7 @@
 
             <label for="expiration">Listing Expiration Date (if no Buyer found):</label>
             <input type="date" id="expiration" name="expiration" required>
-            <p><small>If no Buyer funds escrow, your MNEE 20 stake is refunded after this date.</small></p>
+            <p><small>If no Buyer funds escrow, your 20 MNEE stake is refunded after this date.</small></p>
 
             <label for="delivery-days">Delivery Deadline (days from escrow funding):</label>
             <div class="days-selector">
@@ -61,9 +61,9 @@
                 <button type="button" onclick="adjustPrice(-1)">-</button>
                 <button type="button" onclick="adjustPrice(1)">+</button>
             </div>
-            <p><small>Your price includes a MNEE 10 NoTrust fee, deducted from payout or otherwise refunded if Service Listing is canceled without Escrow. You are depositing MNEE 20 for fees but will receive a MNEE 10 refund unless your client submits a winning arbitration.</small></p>
+            <p><small>Your price includes a 10 MNEE NoTrust fee, deducted from payout or otherwise refunded if Service Listing is canceled without Escrow. You are depositing 20 MNEE for fees but will receive a 10 MNEE refund unless your client submits a winning arbitration.</small></p>
 
-            <button type="submit">Lock MNEE 20 Stake & Post Job</button>
+            <button type="submit">Lock 20 MNEE Stake & Post Job</button>
         </form>
     </div>
 
@@ -96,15 +96,4 @@
         document.getElementById('seller-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const paymail = document.getElementById('paymail').value;
-            const description = document.getElementById('description').value;
-            const expiration = document.getElementById('expiration').value;
-            const deliveryDays = parseInt(document.getElementById('delivery-days').value);
-            const price = parseFloat(document.getElementById('price').value);
-            const sellerStake = 20; // MNEE 20 stake (Fee + Penalty)
-            console.log(`Seller Job Posted:\nPayMail/BSV: ${paymail}\nService: ${description}\nExpiration: ${expiration}\nDelivery: ${deliveryDays} days from escrow\nPrice: MNEE ${price}\nSeller Stake: MNEE ${sellerStake} locked to escrow`);
-            alert(`Job Posted! Please manually send MNEE 20 to escrow: styraks@rockwallet (stub—automated in MVP). Expires ${expiration} if no Buyer. Delivery: ${deliveryDays} days after escrow funded.`);
-            // TODO: Integrate lock.js to send MNEE 20 automatically
-        });
-    </script>
-</body>
-</html>
+            const description
