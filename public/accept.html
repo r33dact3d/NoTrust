@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NoTrust - Accept a Job</title>
+  <link rel="icon" href="logo.png">
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      padding: 20px; 
+      background-color: #000000; 
+      color: #ffffff; 
+    }
+    .job-list, .escrow, .onramp { 
+      max-width: 600px; 
+      margin: 20px auto; 
+      text-align: left; 
+    }
+    .job { 
+      border: 1px solid #ffffff; 
+      padding: 10px; 
+      margin-bottom: 10px; 
+    }
+    button { 
+      padding: 8px; 
+      font-size: 16px; 
+      background-color: #333333; 
+      color: #ffffff; 
+      border: 1px solid #ffffff; 
+    }
+    button:disabled { 
+      background-color: #555555; 
+    }
+    small { 
+      color: #cccccc; 
+    }
+    p { 
+      margin: 5px 0; 
+    }
+    ul { 
+      padding-left: 20px; 
+    }
+    a { 
+      color: #00ccff; 
+      text-decoration: none; 
+    }
+    a:hover { 
+      text-decoration: underline; 
+    }
+  </style>
+</head>
+<body>
+  <h1>NoTrust: Trustless Transactions</h1>
+  <p>Pay providers trustlessly—locked ‘til product delivered.</p>
+  <p><small>Powered by BSV, MNEE & RockWallet</small></p>
+  <img src="logo.png" alt="NoTrust Logo">
+  <p><a href="/index.html">Post a Job</a> | <a href="/how.html">How It Works</a></p>
+
+  <h2>For Buyers: Accept a Job</h2>
+  <div class="job-list">
+    <div class="job">
+      <p><strong>Service/Product:</strong> Logo Design</p>
+      <p><strong>Specs:</strong> PNG, 500x500px</p>
+      <p><strong>Deadline:</strong> April 15, 2025</p>
+      <p><strong>Amount:</strong> 50 MNEE ($50 USD)</p>
+      <p><strong>Provider:</strong> designer@rockwallet</p>
+      <button disabled>Accept Job (Coming Soon)</button>
+    </div>
+  </div>
+
+  <div class="escrow">
+    <h3>Escrow Details (After Accepting)</h3>
+    <p>Send 75 MNEE (50 MNEE job + 20K fee + 5K arbitration) to:</p>
+    <p><span id="escrow-addr">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span> <button onclick="copyAddr()">Copy</button></p>
+    <p>Or use PayMail: <strong>job123@notrust</strong></p>
+    <img src="qr.png" alt="Escrow QR Code" width="150">
+    <p>Provider has locked 5K MNEE—total escrow will be 80 MNEE.</p>
+  </div>
+
+  <div class="onramp">
+    <h3><a href="#get-mnee">New to MNEE? Get It Here</a></h3>
+    <p>NoTrust uses MNEE (1 MNEE = $1 USD) for stable payments on BSV. Get MNEE from fiat:</p>
+    <ul>
+      <li><strong>Recommended: <a href="https://rockwallet.com">RockWallet</a></strong> - Buy MNEE with a card.</li>
+      <li><a href="https://coinex.com">CoinEx</a> - Buy BTC with fiat, swap to MNEE (via USDT).</li>
+      <li><a href="https://changelly.com">Changelly</a> - Buy BSV with fiat, swap to MNEE (e.g., CoinEx).</li>
+    </ul>
+    <p>Got MNEE? Send it to escrow to lock your transaction.</p>
+  </div>
+
+  <script>
+    function copyAddr() {
+      navigator.clipboard.writeText(document.getElementById('escrow-addr').innerText);
+      alert('Address copied!');
+    }
+  </script>
+</body>
+</html>
