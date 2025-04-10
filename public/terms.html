@@ -25,6 +25,7 @@
             opacity: 0.2; 
             transform: rotate(-45deg); 
             pointer-events: none; 
+            letter-spacing: -0.05em; 
         }
         .logo-overlay::after { 
             content: "Zero Trust Escrow on Blockchain"; 
@@ -39,6 +40,7 @@
         }
         footer { padding: 16px; text-align: center; font-size: 1rem; }
         footer a { margin: 0 16px; }
+        .x-logo { display: inline-block; width: 20px; height: 20px; vertical-align: middle; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         @media (max-width: 767px) {
             body { padding: 16px 32px; }
             h1 { font-size: 2.5rem; }
@@ -59,50 +61,53 @@
     <p>By accessing or using Trustless ("Service"), a zero-trust escrow platform powered by MNEE on the BSV blockchain, you agree to these Terms of Service ("Terms"). If you do not agree, do not use the Service.</p>
 
     <h2>2. Service Description</h2>
-    <p>Trustless facilitates trustless escrow transactions between Service Providers and Prospective Clients using smart contracts. Providers list services and lock a refundable 5,000 MNEE deposit; Clients fund escrow via Job IDs (e.g., TLS-12345). Funds are released automatically upon delivery or resolved via third-party arbitration.</p>
+    <p>Trustless facilitates trustless escrow transactions between Service Providers and Prospective Clients using smart contracts. Providers list services with a refundable deposit; Clients fund escrow via Job IDs (e.g., TLS-12345). Funds are released automatically upon delivery or resolved via arbitration.</p>
 
     <h2>3. Eligibility</h2>
     <p>You must be 18 or older and capable of forming a binding contract to use Trustless. You are responsible for ensuring your use complies with local laws.</p>
 
     <h2>4. User Responsibilities</h2>
     <ul>
-        <li><strong>Providers:</strong> Accurately describe services, lock 5,000 MNEE, deliver within agreed days, and provide proof of delivery.</li>
+        <li><strong>Providers:</strong> Accurately describe services, provide a refundable deposit, deliver within agreed days, and provide proof of delivery.</li>
         <li><strong>Clients:</strong> Fund escrow with correct Job IDs, review deliveries promptly, and initiate disputes within 24 hours if needed.</li>
         <li><strong>All Users:</strong> Maintain secure BSV wallet access (e.g., via RockWallet), do not misuse the Service, and provide accurate information.</li>
     </ul>
 
     <h2>5. Deposits and Fees</h2>
-    <p>Providers lock 5,000 MNEE as a refundable deposit per listing. No additional fees are charged by Trustless, though blockchain transaction costs (e.g., BSV network fees) apply. Deposits are refunded if delivery is approved or returned to Clients if arbitration favors them.</p>
+    <p>Providers submit a refundable deposit per listing. No additional fees are charged by Trustless, though blockchain transaction costs (e.g., BSV network fees) apply. Deposits are refunded if delivery is approved or returned to Clients if arbitration favors them.</p>
 
     <h2>6. Escrow and Payment</h2>
     <p>Funds are held in a smart contract until conditions are met. Upon delivery approval, funds (minus deposit) are released to Providers automatically. Deposits are returned or forfeited based on arbitration outcomes.</p>
 
     <h2>7. Disputes and Arbitration</h2>
-    <p>Disputes must be raised within 24 hours of delivery. Trustless provides third-party arbitration via an independent blockchain-based service. Outcomes are final: winners receive funds/deposits; losers forfeit them. Arbitration details are in smart contract code, publicly auditable on BSV.</p>
+    <p>Disputes must be raised within 24 hours of delivery. All disputes are resolved through binding arbitration administered by the American Arbitration Association (AAA) in the State of Wyoming. Outcomes are final: winners receive funds/deposits; losers forfeit them. Arbitration details are in smart contract code, publicly auditable on BSV.</p>
 
-    <h2>8. No Warranties</h2>
+    <h2>8. Privacy</h2>
+    <p>Trustless collects minimal data (BSV wallet addresses, Job IDs) solely to facilitate transactions. We do not sell your data or share it beyond what’s recorded on the public BSV blockchain. No personal identifiable information is required beyond what you choose to provide.</p>
+
+    <h2>9. No Warranties</h2>
     <p>Trustless is provided "as is." We do not guarantee uninterrupted service, transaction success, or freedom from errors. Blockchain risks (e.g., network delays, smart contract bugs) are your responsibility.</p>
 
-    <h2>9. Limitation of Liability</h2>
+    <h2>10. Limitation of Liability</h2>
     <p>Trustless is not liable for losses from Service use, including lost funds, data, or profits, except where required by law. Total liability is limited to the MNEE amount in your transaction.</p>
 
-    <h2>10. Indemnity</h2>
+    <h2>11. Indemnity</h2>
     <p>You agree to indemnify Trustless against claims arising from your misuse of the Service or violation of these Terms.</p>
 
-    <h2>11. Termination</h2>
+    <h2>12. Termination</h2>
     <p>We may suspend or terminate your access for violating these Terms or at our discretion. Ongoing transactions will complete per smart contract rules.</p>
 
-    <h2>12. Changes to Terms</h2>
+    <h2>13. Changes to Terms</h2>
     <p>We may update these Terms, effective upon posting. Continued use after changes constitutes acceptance.</p>
 
-    <h2>13. Governing Law</h2>
-    <p>These Terms are governed by [Jurisdiction TBD—e.g., Wyoming, USA, a blockchain-friendly state], excluding conflict of law rules. Disputes not resolved via arbitration may go to courts there.</p>
+    <h2>14. Governing Law</h2>
+    <p>These Terms are governed by the laws of the State of Wyoming, USA, excluding conflict of law rules. Disputes not resolved via AAA arbitration may go to Wyoming courts.</p>
 
-    <h2>14. Contact</h2>
+    <h2>15. Contact</h2>
     <p>Questions? Reach us on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
 
     <footer>
-        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]">X</a> | <a href="/index.html">Home</a></p>
+        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]"><span class="x-logo"></span></a> | <a href="/index.html">Home</a></p>
     </footer>
 </body>
 </html>
