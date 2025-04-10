@@ -15,7 +15,8 @@
         p { margin: 15px 0; line-height: 1.6; font-size: 1.2rem; }
         a { color: #ff9900; text-decoration: none; }
         a:hover { color: #e68a00; }
-        img { max-width: 200px; margin: 20px 0; }
+        img { max-width: 200px; margin: 20px 0; transition: opacity 0.3s; }
+        img:hover { opacity: 0.8; }
         input, button { padding: 10px; margin: 15px 0; font-family: "Exo 2", sans-serif; }
         input[type="text"] { width: 250px; background: #ffffff; color: #000000; border: 1px solid #ff9900; border-radius: 0; }
         button { background: transparent; color: #ff9900; border: 1px solid #ff9900; border-radius: 0; cursor: pointer; padding: 15px 30px; }
@@ -25,15 +26,40 @@
         .listings { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 48px; margin: 32px 0; }
         .listing-card { background: transparent; padding: 24px; border: 1px solid #ff9900; }
         .form-group { margin-bottom: 30px; }
-        .hex-overlay { 
+        .square-scatter { 
             position: absolute; 
             top: 0; 
-            right: 0; 
-            width: 300px; 
-            height: 300px; 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23ff9900" stroke-width="1"><path d="M25 15 L75 15 L95 50 L75 85 L25 85 L5 50 Z"/></svg>') no-repeat center; 
-            opacity: 0.2; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
             pointer-events: none; 
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.1"/></svg>') 20% 10%, 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.1"/></svg>') 60% 50%, 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.1"/></svg>') 30% 90%; 
+            background-repeat: no-repeat; 
+        }
+        .logo-overlay { 
+            position: absolute; 
+            top: 10%; 
+            right: -20%; 
+            font-family: "Audiowide", sans-serif; 
+            font-size: 10rem; 
+            color: #ff9900; 
+            opacity: 0.2; 
+            transform: rotate(45deg); 
+            pointer-events: none; 
+        }
+        .logo-overlay::after { 
+            content: "Zero Trust Escrow on Blockchain"; 
+            font-family: "Exo 2", sans-serif; 
+            font-size: 2rem; 
+            display: block; 
+            opacity: 0.1; 
+            transform: rotate(0deg); 
+            position: absolute; 
+            right: 20%; 
+            top: 80%; 
         }
         .burger-menu { position: fixed; top: 16px; left: 16px; z-index: 1000; cursor: pointer; }
         .burger-icon { width: 40px; height: 40px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>') no-repeat center; }
@@ -45,6 +71,8 @@
         .social-icon { width: 40px; height: 40px; cursor: pointer; }
         .x-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         .tipjar-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; }
+        footer { padding: 16px; text-align: center; font-size: 1rem; }
+        footer a { margin: 0 16px; }
         @media (max-width: 767px) {
             .section { padding: 16px 32px; }
             .section::after { left: 32px; width: 100px; }
@@ -52,6 +80,8 @@
             .social-bar { top: 8px; right: 8px; }
             h1 { font-size: 2.5rem; }
             h2 { font-size: 1.75rem; }
+            .logo-overlay { font-size: 6rem; top: 5%; right: -10%; }
+            .logo-overlay::after { font-size: 1.2rem; right: 10%; top: 70%; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
@@ -76,7 +106,8 @@
 
     <!-- Browse Listings Section -->
     <div id="listings" class="section">
-        <div class="hex-overlay"></div>
+        <div class="square-scatter"></div>
+        <div class="logo-overlay">TRUSTLESS</div>
         <h1>Browse Listings</h1>
         <p>Find a service. Fund escrow.</p>
         <div class="listings">
@@ -85,7 +116,7 @@
                 <p>PNG 500x500px</p>
                 <p>Price: 60 MNEE</p>
                 <p>Delivery: 7 days</p>
-                <p>Job ID: NTX-12345</p>
+                <p>Job ID: TLS-12345</p>
                 <p>Status: Awaiting Funding</p>
                 <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
@@ -94,7 +125,7 @@
                 <p>Figma, 3 pages</p>
                 <p>Price: 100 MNEE</p>
                 <p>Delivery: 10 days</p>
-                <p>Job ID: NTX-12346</p>
+                <p>Job ID: TLS-12346</p>
                 <p>Status: Awaiting Funding</p>
                 <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
@@ -104,12 +135,12 @@
 
     <!-- Purchase Services Section -->
     <div id="purchase" class="section">
-        <div class="hex-overlay"></div>
+        <div class="square-scatter"></div>
         <h1>Purchase Services</h1>
         <p>Enter Job ID to fund escrow.</p>
         <div class="form-group">
             <label for="jobId">Job ID:</label><br>
-            <input type="text" id="jobId" placeholder="e.g., NTX-12345">
+            <input type="text" id="jobId" placeholder="e.g., TLS-12345">
         </div>
         <button onclick="fundEscrow()">Fund Escrow</button>
         <p>Need MNEE? Try <a href="https://rockwallet.com">RockWallet</a>.</p>
@@ -117,7 +148,7 @@
 
     <!-- How It Works (Client) Section -->
     <div id="how" class="section">
-        <div class="hex-overlay"></div>
+        <div class="square-scatter"></div>
         <h1>How It Works</h1>
         <p>Buy services securely with Trustless.</p>
         <h2>Find a Service</h2>
@@ -130,6 +161,10 @@
         <p>3rd Party Arbitration provided by Trustless</p>
         <p>Questions? Ask on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
     </div>
+
+    <footer>
+        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]">X</a> | <a href="/index.html">Home</a></p>
+    </footer>
 
     <script>
         function toggleMenu() {
