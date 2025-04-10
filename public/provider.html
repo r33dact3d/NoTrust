@@ -53,10 +53,10 @@
             font-family: "Audiowide", sans-serif; 
             font-size: 10rem; 
             color: #ff9900; 
-            opacity: 0.2; 
+            opacity: 0.1; 
             transform: rotate(-45deg); 
             pointer-events: none; 
-            letter-spacing: -0.05em; 
+            letter-spacing: -0.1em; 
         }
         .logo-overlay::after { 
             content: "Zero Trust Escrow on Blockchain"; 
@@ -80,7 +80,8 @@
         .x-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         .tipjar-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; }
         footer { padding: 16px; text-align: center; font-size: 1rem; }
-        footer a { margin: 0 16px; }
+        footer a { margin: 0 16px; transition: color 0.3s; }
+        footer a:hover { color: #e68a00; text-decoration: underline; }
         .x-logo { display: inline-block; width: 20px; height: 20px; vertical-align: middle; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         @media (max-width: 767px) {
             .section { padding: 16px 32px; }
@@ -116,7 +117,7 @@
     <!-- Create a Listing Section -->
     <div id="create" class="section">
         <div class="square-scatter"></div>
-        <div class="logo-overlay">TRUSTLESS</div>
+        <div class="logo-overlay">Trustless</div>
         <h1>Create a Listing</h1>
         <p>Description of Services.</p>
         <div class="form-group">
