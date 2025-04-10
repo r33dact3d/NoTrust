@@ -13,7 +13,7 @@
         p { margin: 10px 0; font-size: 1.5rem; text-align: center; }
         a { color: #ff9900; text-decoration: none; }
         a:hover { color: #e68a00; }
-        img { max-width: 500px; margin: 20px 0; transition: opacity 0.3s; }
+        img { max-width: 600px; margin: 20px 0; transition: opacity 0.3s; }
         img:hover { opacity: 0.8; }
         .buttons { display: flex; gap: 48px; margin-top: 64px; }
         button { 
@@ -26,8 +26,14 @@
             border-radius: 0; 
             cursor: pointer; 
             transition: color 0.3s, background 0.3s; 
+            animation: pulse 2s infinite; 
         }
         button:hover { background: #ff9900; color: #000000; }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 10px 5px rgba(255, 153, 0, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.7); }
+        }
         .logo-overlay { 
             position: absolute; 
             top: 10%; 
@@ -35,10 +41,10 @@
             font-family: "Audiowide", sans-serif; 
             font-size: 10rem; 
             color: #ff9900; 
-            opacity: 0.2; 
+            opacity: 0.1; 
             transform: rotate(-45deg); 
             pointer-events: none; 
-            letter-spacing: -0.05em; 
+            letter-spacing: -0.1em; 
         }
         .logo-overlay::after { 
             content: "Zero Trust Escrow on Blockchain"; 
@@ -52,7 +58,8 @@
             top: 80%; 
         }
         footer { position: absolute; bottom: 16px; width: 100%; text-align: center; font-size: 1rem; }
-        footer a { margin: 0 16px; }
+        footer a { margin: 0 16px; transition: color 0.3s; }
+        footer a:hover { color: #e68a00; text-decoration: underline; }
         .x-logo { display: inline-block; width: 20px; height: 20px; vertical-align: middle; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         @media (max-width: 767px) {
             .buttons { flex-direction: column; gap: 24px; }
@@ -66,7 +73,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="logo-overlay">TRUSTLESS</div>
+    <div class="logo-overlay">Trustless</div>
     <img src="/logo.png" alt="Trustless Logo">
     <p>Powered by MNEE on BSV</p>
     <div class="buttons">
