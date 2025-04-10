@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trustless - Prospective Clients</title>
+    <title>NoTrust - Prospective Clients</title>
     <link rel="icon" href="logo.png">
     <style>
         html { font-family: "Exo 2", Arial, sans-serif; font-size: 16px; line-height: 1.15; scroll-behavior: smooth; }
         body { margin: 0; background: #000000; color: #e5e5e5; position: relative; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        h1 { font-family: "Audiowide", sans-serif; color: #ff9900; margin: 0 0 32px; font-size: 4rem; }
+        h1 { font-family: "Orbitron", sans-serif; color: #ff9900; margin: 0 0 32px; font-size: 4rem; }
         h2 { font-family: "Exo 2", sans-serif; color: #ff9900; margin: 64px 0 24px; font-size: 2.5rem; }
         h3 { font-family: "Exo 2", sans-serif; color: #ff9900; margin: 0 0 15px; font-size: 1.5rem; }
         p { margin: 15px 0; line-height: 1.6; font-size: 1.2rem; }
@@ -45,7 +45,7 @@
             position: absolute; 
             top: 10%; 
             right: -20%; 
-            font-family: "Audiowide", sans-serif; 
+            font-family: "Orbitron", sans-serif; 
             font-size: 10rem; 
             color: #ff9900; 
             opacity: 0.1; 
@@ -89,14 +89,14 @@
             .logo-overlay::after { font-size: 1.2rem; right: 10%; top: 70%; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Exo+2&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="burger-menu" onclick="toggleMenu()">
         <div class="burger-icon"></div>
     </div>
     <div class="mobile-menu" id="mobileMenu">
-        <img src="/logo.png" alt="Trustless Logo">
+        <img src="/logo.png" alt="NoTrust Logo">
         <div class="mobile-links">
             <a href="#listings" onclick="toggleMenu()">Browse Listings</a>
             <a href="#purchase" onclick="toggleMenu()">Purchase Services</a>
@@ -112,7 +112,7 @@
     <!-- Browse Listings Section -->
     <div id="listings" class="section">
         <div class="square-scatter"></div>
-        <div class="logo-overlay">Trustless</div>
+        <div class="logo-overlay">NoTrust</div>
         <h1>Browse Listings</h1>
         <p>Find a service. Fund escrow.</p>
         <div class="listings">
@@ -121,7 +121,7 @@
                 <p>PNG 500x500px</p>
                 <p>Price: 60 MNEE</p>
                 <p>Delivery: 7 days</p>
-                <p>Job ID: TLS-12345</p>
+                <p>Job ID: NTX-12345</p>
                 <p>Status: Awaiting Funding</p>
                 <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
@@ -130,7 +130,7 @@
                 <p>Figma, 3 pages</p>
                 <p>Price: 100 MNEE</p>
                 <p>Delivery: 10 days</p>
-                <p>Job ID: TLS-12346</p>
+                <p>Job ID: NTX-12346</p>
                 <p>Status: Awaiting Funding</p>
                 <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
@@ -145,7 +145,7 @@
         <p>Enter Job ID to fund escrow.</p>
         <div class="form-group">
             <label for="jobId">Job ID:</label><br>
-            <input type="text" id="jobId" placeholder="e.g., TLS-12345">
+            <input type="text" id="jobId" placeholder="e.g., NTX-12345">
         </div>
         <button onclick="fundEscrow()">Fund Escrow</button>
         <p>Need MNEE? Try <a href="https://rockwallet.com">RockWallet</a>.</p>
@@ -155,7 +155,7 @@
     <div id="how" class="section">
         <div class="square-scatter"></div>
         <h1>How It Works</h1>
-        <p>Buy services securely with Trustless.</p>
+        <p>Buy services securely with NoTrust.</p>
         <h2>Find a Service</h2>
         <p>Browse listings. Note Job ID.</p>
         <h2>Pay</h2>
@@ -163,12 +163,12 @@
         <h2>After Funding</h2>
         <p>Service Provider delivers work-product and receives payment automatically through the blockchain.</p>
         <h2>Disputes</h2>
-        <p>3rd Party Arbitration provided by Trustless</p>
+        <p>3rd Party Arbitration provided by NoTrust</p>
         <p>Questions? Ask on X: <a href="https://x.com/[yourhandle]">@[yourhandle]</a>.</p>
     </div>
 
     <footer>
-        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]"><span class="x-logo"></span></a> | <a href="/index.html">Home</a></p>
+        <p>NoTrust © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]"><span class="x-logo"></span></a> | <a href="/index.html">Home</a></p>
     </footer>
 
     <script>
