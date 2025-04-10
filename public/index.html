@@ -13,7 +13,8 @@
         p { margin: 10px 0; font-size: 1.5rem; text-align: center; }
         a { color: #ff9900; text-decoration: none; }
         a:hover { color: #e68a00; }
-        img { max-width: 300px; margin: 20px 0; }
+        img { max-width: 300px; margin: 20px 0; transition: opacity 0.3s; }
+        img:hover { opacity: 0.8; }
         .buttons { display: flex; gap: 48px; margin-top: 64px; }
         button { 
             padding: 20px 40px; 
@@ -38,12 +39,26 @@
             transform: rotate(-45deg); 
             pointer-events: none; 
         }
+        .logo-overlay::after { 
+            content: "Zero Trust Escrow on Blockchain"; 
+            font-family: "Exo 2", sans-serif; 
+            font-size: 2rem; 
+            display: block; 
+            opacity: 0.1; 
+            transform: rotate(0deg); 
+            position: absolute; 
+            left: 20%; 
+            top: 80%; 
+        }
+        footer { position: absolute; bottom: 16px; width: 100%; text-align: center; font-size: 1rem; }
+        footer a { margin: 0 16px; }
         @media (max-width: 767px) {
             .buttons { flex-direction: column; gap: 24px; }
             h1 { font-size: 2.5rem; }
             p { font-size: 1.2rem; }
             button { font-size: 1.5rem; padding: 15px 30px; }
             .logo-overlay { font-size: 6rem; top: 5%; left: -10%; }
+            .logo-overlay::after { font-size: 1.2rem; left: 10%; top: 70%; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2&display=swap" rel="stylesheet">
@@ -56,5 +71,8 @@
         <button onclick="window.location.href='/provider.html'">Service Provider</button>
         <button onclick="window.location.href='/client.html'">Prospective Client</button>
     </div>
+    <footer>
+        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]">X</a></p>
+    </footer>
 </body>
 </html>
