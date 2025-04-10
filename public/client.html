@@ -34,9 +34,11 @@
             height: 100%; 
             pointer-events: none; 
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.1"/></svg>') 20% 10%, 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.1"/></svg>') 60% 50%, 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.1"/></svg>') 30% 90%; 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.2"/></svg>') 20% 10%, 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.2"/></svg>') 60% 50%, 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.2"/></svg>') 30% 90%, 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.2"/></svg>') 50% 20%, 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%23ff9900" opacity="0.2"/></svg>') 80% 70%; 
             background-repeat: no-repeat; 
         }
         .logo-overlay { 
@@ -49,6 +51,7 @@
             opacity: 0.2; 
             transform: rotate(45deg); 
             pointer-events: none; 
+            letter-spacing: -0.05em; 
         }
         .logo-overlay::after { 
             content: "Zero Trust Escrow on Blockchain"; 
@@ -73,6 +76,7 @@
         .tipjar-icon { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center; }
         footer { padding: 16px; text-align: center; font-size: 1rem; }
         footer a { margin: 0 16px; }
+        .x-logo { display: inline-block; width: 20px; height: 20px; vertical-align: middle; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9900"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>') no-repeat center; }
         @media (max-width: 767px) {
             .section { padding: 16px 32px; }
             .section::after { left: 32px; width: 100px; }
@@ -116,7 +120,7 @@
                 <p>PNG 500x500px</p>
                 <p>Price: 60 MNEE</p>
                 <p>Delivery: 7 days</p>
-                <p>Job ID: TLS-12345</p>
+                <p>Job ID: TLS непосредственно-12345</p>
                 <p>Status: Awaiting Funding</p>
                 <button onclick="window.location.href='#purchase'">Purchase Service</button>
             </div>
@@ -163,7 +167,7 @@
     </div>
 
     <footer>
-        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]">X</a> | <a href="/index.html">Home</a></p>
+        <p>Trustless © 2025 | <a href="/terms.html">Terms of Service</a> | <a href="https://x.com/[yourhandle]"><span class="x-logo"></span></a> | <a href="/index.html">Home</a></p>
     </footer>
 
     <script>
